@@ -8,5 +8,5 @@ use CodeIgniter\Router\RouteCollection;
 // routes adalah controller mana yang akan merespon sebuah request, 
 // misal ketika mengakses /homeadmin maka controlle yang akan digunakan adalah Admincontroller dan fungsi index
 
-$routes->get('/', 'Home::index');
-$routes->get('/homeadmin', 'AdminController::index');
+
+$routes->get('/', 'UserController::index');
