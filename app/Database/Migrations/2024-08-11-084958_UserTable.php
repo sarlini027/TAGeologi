@@ -26,18 +26,14 @@ class UserTable extends Migration
                 'constraint'    => 255,
                 'null'          => true
             ],
-            'email'    => [
-                'type'          => 'VARCHAR',
-                'constraint'    => 255,
-            ],
             'password' => [
                 'type'          => 'VARCHAR',
                 'constraint'    => 255,
             ],
             'role'  => [
                 'type'          => 'ENUM',
-                'constraint'    => ['admin', 'dosen', 'user'],
-                'default'       => 'user'
+                'constraint'    => ['admin', 'dosen', 'mahasiswa'],
+                'default'       => 'mahasiswa'
             ],
             'created_at'    => [
                 'type'          => 'DATETIME',
@@ -53,8 +49,8 @@ class UserTable extends Migration
         // Menambahkan primary key pada tabel users dengan field id
         $this->forge->addPrimaryKey('id');
 
-        // Menambahkan unique key pada tabel users dengan field email
-        $this->forge->addUniqueKey(['email']);
+        // Menambahkan unique key pada tabel users dengan field username
+        $this->forge->addUniqueKey(['username']);
 
         // Membuat tabel users
         $this->forge->createTable('users', true);
