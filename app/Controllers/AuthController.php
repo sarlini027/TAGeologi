@@ -48,7 +48,7 @@ class AuthController extends BaseController
                 return redirect()->to(base_url('/auth/login'))->with('error', 'Kata sandi tidak sesuai');
             }
         } else {
-            return redirect()->to(base_url('/auth/login'))->with('error', 'Email tidak terdaftar');
+            return redirect()->to(base_url('/auth/login'))->with('error', 'User tidak terdaftar');
         }
     }
 

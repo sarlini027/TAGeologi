@@ -47,7 +47,7 @@ class UserTable extends Migration
         ]);
 
         // Menambahkan primary key pada tabel users dengan field id
-        $this->forge->addPrimaryKey('id');
+        $this->forge->addKey('id', true, true);
 
         // Menambahkan unique key pada tabel users dengan field username
         $this->forge->addUniqueKey(['username']);

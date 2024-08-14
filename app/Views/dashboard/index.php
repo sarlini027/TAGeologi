@@ -1,4 +1,5 @@
 <?= $this->extend('dashboard/layouts') ?>
+<?= $this->section('title') ?>Dashboard<?= $this->endSection() ?>
 <?= $this->section('content') ?>
 <!-- start page title -->
 <div class="row">
