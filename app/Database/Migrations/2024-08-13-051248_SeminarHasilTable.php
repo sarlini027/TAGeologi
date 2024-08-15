@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use CodeIgniter\Database\RawSql;
 
 class SeminarHasilTable extends Migration
 {
@@ -31,6 +32,10 @@ class SeminarHasilTable extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],
+            'status_validasi' => [
+                'type' => 'BOOLEAN',
+                'default' => 0
+            ],
             'id_dosen_penguji_1' => [
                 'type' => 'INT',
                 'null' => true,
@@ -52,10 +57,14 @@ class SeminarHasilTable extends Migration
                 'unsigned' => true
             ],
             'created_at' => [
-                'type' => 'DATETIME'
+                'type' => 'DATETIME',
+                'default'   => new RawSql('CURRENT_TIMESTAMP'),
+                'null'      => true
             ],
             'updated_at' => [
-                'type' => 'DATETIME'
+                'type' => 'DATETIME',
+                'default'   => new RawSql('CURRENT_TIMESTAMP'),
+                'null'      => true
             ]
         ]);
 

@@ -3,6 +3,7 @@
 namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use CodeIgniter\Database\RawSql;
 
 class SidangAkhirTable extends Migration
 {
@@ -48,30 +49,38 @@ class SidangAkhirTable extends Migration
                 'default' => 0
             ],
             'id_dosen_penguji_1' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true
+                'type'          => 'INT',
+                'constraint'    => 11,
+                'unsigned'      => true,
+                'null'          => true
             ],
             'id_dosen_penguji_2' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true
+                'type'          => 'INT',
+                'constraint'    => 11,
+                'unsigned'      => true,
+                'null'          => true
             ],
             'id_dosen_pembimbing_1' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true
+                'type'          => 'INT',
+                'constraint'    => 11,
+                'unsigned'      => true,
+                'null'          => true
             ],
             'id_dosen_pembimbing_2' => [
-                'type' => 'INT',
-                'constraint' => 11,
-                'unsigned' => true
+                'type'          => 'INT',
+                'constraint'    => 11,
+                'unsigned'      => true,
+                'null'          => true
             ],
             'created_at' => [
-                'type' => 'DATETIME'
+                'type' => 'DATETIME',
+                'default'   => new RawSql('CURRENT_TIMESTAMP'),
+                'null'      => true
             ],
             'updated_at' => [
-                'type' => 'DATETIME'
+                'type' => 'DATETIME',
+                'default'   => new RawSql('CURRENT_TIMESTAMP'),
+                'null'      => true
             ]
         ]);
 

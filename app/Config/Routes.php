@@ -2,6 +2,9 @@
 
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Controllers\SeminarHasilController;
+use App\Controllers\SeminarKemajuanController;
+use App\Controllers\SidangAkhirController;
 use CodeIgniter\Router\RouteCollection;
 
 /**
@@ -22,4 +25,19 @@ $routes->post('/auth/logout', [AuthController::class, 'logout'], ['filter' => 'a
 
 $routes->group('dashboard', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [DashboardController::class, 'index']);
+});
+
+$routes->group('seminar-kemajuan', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [SeminarKemajuanController::class, 'index']);
+    $routes->post('/', [SeminarKemajuanController::class, 'store']);
+});
+
+$routes->group('seminar-hasil', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [SeminarHasilController::class, 'index']);
+    $routes->post('/', [SeminarHasilController::class, 'store']);
+});
+
+$routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [SidangAkhirController::class, 'index']);
+    $routes->post('/', [SidangAkhirController::class, 'store']);
 });

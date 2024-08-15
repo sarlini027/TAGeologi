@@ -39,6 +39,7 @@ class AuthController extends BaseController
             if($verify_pass) {
                 // jika password benar maka set session user
                 session()->set('user', [
+                    'id'            => $cekUser['id'],
                     'nama_lengkap'  => $cekUser['nama_lengkap'],
                     'username'      => $cekUser['username'],
                     'role'          => $cekUser['role']

@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title><?= $this->renderSection('title') . ' | ' ?>TAGeologi</title>
+    <title><?= $title ?? 'Dashboard' ?> | TAGeologi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
     <meta content="Themesbrand" name="author" />
@@ -87,105 +87,7 @@
             </div>
         </header>
 
-        <!-- ========== Left Sidebar Start ========== -->
-        <div class="vertical-menu">
-
-            <div data-simplebar class="h-100">
-
-                <!--- Sidemenu -->
-                <div id="sidebar-menu">
-                    <!-- Left Menu Start -->
-                    <ul class="metismenu list-unstyled" id="side-menu">
-
-                        <li class="menu-title" key="t-menu">Menu</li>
-
-                        <li>
-                            <a href="#" class="waves-effect">
-                                <i class="bx bx-home"></i>
-                                <span key="t-dashboard">Dashboard</span>
-                            </a>
-                        </li>
-
-                        <?php if (session()->user['role'] == 'mahasiswa'): ?>
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect has-arrow">
-                                    <i class="bx bx-file"></i>
-                                    <span key="t-pendaftaran">Pendaftaran</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-seminar-kemajuan">Seminar Kemajuan</a></li>
-                                    <li><a href="#" key="t-seminar-hasil">Seminar Hasil</a></li>
-                                    <li><a href="#" key="t-sidang-akhir">Sidang Akhir</a></li>
-                                </ul>
-                            </li>
-                        <?php endif; ?>
-
-                        <?php if (session()->user['role'] == 'admin' || session()->user['role'] == 'dosen'): ?>
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect has-arrow">
-                                    <i class="bx bx-file"></i>
-                                    <span key="t-seminar-kemajuan">Seminar Kemajuan</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
-                                    <li><a href="#" key="t-list-validasi">List Validasi</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect has-arrow">
-                                    <i class="bx bx-file"></i>
-                                    <span key="t-seminar-hasil">Seminar Hasil</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
-                                    <li><a href="#" key="t-list-validasi">List Validasi</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect has-arrow">
-                                    <i class="bx bx-file"></i>
-                                    <span key="t-sidang-akhir">Sidang Akhir</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
-                                    <li><a href="#" key="t-list-validasi">List Validasi</a></li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="javascript: void(0);" class="waves-effect has-arrow">
-                                    <i class="bx bx-file"></i>
-                                    <span key="t-nilai-ta">Nilai Tugas Akhir</span>
-                                </a>
-                                <ul class="sub-menu" aria-expanded="false">
-                                    <li><a href="#" key="t-seminar-kemajuan">Nilai Seminar Kemajuan</a></li>
-                                    <li><a href="#" key="t-seminar-hasil">Nilai Seminar Hasil</a></li>
-                                    <li><a href="#" key="t-sidang-akhir">Nilai Sidang Akhir</a></li>
-                                </ul>
-                            </li>
-                        <?php endif; ?>
-
-                        <?php if (session()->user['role'] == 'admin'): ?>
-                            <li>
-                                <a href="#" class="waves-effect">
-                                    <i class="bx bx-group"></i>
-                                    <span key="t-mahasiswa">Data Mahasiswa</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="waves-effect">
-                                    <i class="bx bx-user"></i>
-                                    <span key="t-dosen">Data Dosen</span>
-                                </a>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
-                </div>
-                <!-- Sidebar -->
-            </div>
-        </div>
-        <!-- Left Sidebar End -->
-
-
+        <?= $this->include('dashboard/layouts/sidebar') ?>
 
         <!-- ============================================================== -->
         <!-- Start right Content here -->
@@ -194,6 +96,24 @@
 
             <div class="page-content">
                 <div class="container-fluid">
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                                <h4 class="mb-sm-0 font-size-18"><?= $title ?? 'Dashboard' ?></h4>
+
+                                <div class="page-title-right">
+                                    <ol class="breadcrumb m-0">
+                                        <li class="breadcrumb-item"><a href="javascript: void(0);">Dashboards</a></li>
+                                        <li class="breadcrumb-item active">Dashboard</li>
+                                    </ol>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
                     <?= $this->renderSection('content') ?>
                 </div>
                 <!-- container-fluid -->
