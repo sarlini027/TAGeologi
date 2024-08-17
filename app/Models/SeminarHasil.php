@@ -52,4 +52,12 @@ class SeminarHasil extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Relationships Table Users
+    public function getSeminarHasilWithUsers()
+    {
+        return $this->select('users.*, seminar_hasil.*')
+            ->join('users', 'users.id = seminar_hasil.user_id')
+            ->findAll();
+    }
 }

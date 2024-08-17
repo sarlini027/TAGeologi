@@ -34,8 +34,12 @@
 
       <div class="collapse navbar-collapse" id="ftco-nav">
         <ul class="navbar-nav nav ml-auto">
-          <li class="nav-item"><a href="<?= base_url('auth/login') ?>" class="nav-link"><span>Masuk</span></a></li>
-          <li class="nav-item"><a href="<?= base_url('auth/register') ?>" class="nav-link"><span>Daftar</span></a></li>
+          <?php if (session()->get('user')) : ?>
+            <li class="nav-item"><a href="<?= base_url('dashboard') ?>" class="nav-link"><span>Dashboard</span></a></li>
+          <?php else : ?>
+            <li class="nav-item"><a href="<?= base_url('auth/login') ?>" class="nav-link"><span>Masuk</span></a></li>
+            <li class="nav-item"><a href="<?= base_url('auth/register') ?>" class="nav-link"><span>Daftar</span></a></li>
+          <?php endif; ?>
         </ul>
       </div>
     </div>
@@ -51,7 +55,75 @@
             <span class="subheading">Tugas Akhir</span>
             <h1>Program Studi Geologi</h1>
             <p>Tugas Akhir merupakan hasil tertulis yang disusun oleh mahasiswa program studi Geologi berdasarkan pelaksanaan suatu penelitian. Pelaksanaan Tugas Akhir di Program Geologi Data terdiri dari tiga tahap, yaitu Seminar kemajuan, Komprehenzip, Seminar Hasil, dan Sidang Akhir, yang masing-masing tahap dilakukan secara berurutan.</p>
-            <p><a href="#" class="btn btn-primary py-3 px-4">Template Dokumen</a></p>
+            <a href="#template-section" class="btn btn-primary py-3 px-4">Template Dokumen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ftco-section contact-section ftco-no-pb" id="template-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center ftco-animate">
+          <h2 class="mb-4">Template Dokumen</h2>
+          <p>
+            Silahkan download template dokumen Tugas Akhir Program Studi Geologi.
+          </p>
+        </div>
+      </div>
+
+      <div class="row d-flex contact-info mb-5">
+        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+          <div class="align-self-stretch box text-center p-4 bg-light">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-file"></span>
+            </div>
+            <div>
+              <h3 class="mb-4">Pendaftaran Kemajuan</h3>
+              <a href="#" target="_blank" class="btn btn-sm btn-primary">
+                Download
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+          <div class="align-self-stretch box text-center p-4 bg-light">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-calendar"></span>
+            </div>
+            <div>
+              <h3 class="mb-4">Kendali Bimbingan</h3>
+              <a href="#" target="_blank" class="btn btn-sm btn-primary">
+                Download
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+          <div class="align-self-stretch box text-center p-4 bg-light">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-users"></span>
+            </div>
+            <div>
+              <h3 class="mb-4">Lembar Bimbingan</h3>
+              <a href="#" target="_blank" class="btn btn-sm btn-primary">
+                Download
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+          <div class="align-self-stretch box text-center p-4 bg-light">
+            <div class="icon d-flex align-items-center justify-content-center">
+              <span class="fa fa-list"></span>
+            </div>
+            <div>
+              <h3 class="mb-4">Lembar Kehadiran</h3>
+              <a href="#" target="_blank" class="btn btn-sm btn-primary">
+                Download
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -165,9 +237,10 @@
           <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;<script>
               document.write(new Date().getFullYear());
-            </script> All rights reserved 
+            </script> All rights reserved
             <!-- | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
+            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          </p>
         </div>
       </div>
     </div>

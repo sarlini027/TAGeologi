@@ -30,14 +30,23 @@ $routes->group('dashboard', ['filter' => 'authfilter'], static function ($routes
 $routes->group('seminar-kemajuan', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [SeminarKemajuanController::class, 'index']);
     $routes->post('/', [SeminarKemajuanController::class, 'store']);
+
+    // List Pengajuan
+    $routes->get('list-pengajuan', [SeminarKemajuanController::class, 'listPengajuan']);
 });
 
 $routes->group('seminar-hasil', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [SeminarHasilController::class, 'index']);
     $routes->post('/', [SeminarHasilController::class, 'store']);
+
+    // List Pengajuan
+    $routes->get('list-pengajuan', [SeminarHasilController::class, 'listPengajuan']);
 });
 
 $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [SidangAkhirController::class, 'index']);
     $routes->post('/', [SidangAkhirController::class, 'store']);
+
+    // List Pengajuan
+    $routes->get('list-pengajuan', [SidangAkhirController::class, 'listPengajuan']);
 });

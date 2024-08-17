@@ -11,6 +11,13 @@
     <!-- App favicon -->
     <link rel="shortcut icon" href="<?= base_url('dashboard_assets/images/favicon.ico') ?>">
 
+    <!-- DataTables -->
+    <link href="<?= base_url('dashboard_assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+    <link href="<?= base_url('dashboard_assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+
+    <!-- Responsive datatable examples -->
+    <link href="<?= base_url('dashboard_assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') ?>" rel="stylesheet" type="text/css" />
+
     <!-- Bootstrap Css -->
     <link href="<?= base_url('dashboard_assets/css/bootstrap.min.css') ?>" id="bootstrap-style" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
@@ -37,7 +44,7 @@
                 <div class="d-flex">
                     <!-- LOGO -->
                     <div class="navbar-brand-box">
-                        <a href="index.html" class="logo logo-dark">
+                        <a href="<?= base_url("/dashboard") ?>" class="logo logo-dark">
                             <span class="logo-sm">
                                 <img src="<?= base_url('dashboard_assets/images/logo.svg') ?>" alt="" height="22">
                             </span>
@@ -46,7 +53,7 @@
                             </span>
                         </a>
 
-                        <a href="index.html" class="logo logo-light">
+                        <a href="<?= base_url("/dashboard") ?>" class="logo logo-light">
                             <span class="logo-sm">
                                 <img src="<?= base_url('dashboard_assets/images/logo-light.svg') ?>" alt="" height="22">
                             </span>
@@ -74,6 +81,9 @@
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <!-- item-->
+                            <a class="dropdown-item" href="<?= base_url('/') ?>"><i class="bx bx-home font-size-16 align-middle me-1"></i>
+                                <span key="t-home">Halaman Utama</span></a>
                             <form action="<?= base_url('auth/logout') ?>" method="post">
                                 <?= csrf_field() ?>
                                 <button type="submit" class="dropdown-item text-danger"><i class="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
@@ -152,6 +162,14 @@
     <script src="<?= base_url('dashboard_assets/libs/simplebar/simplebar.min.js') ?>"></script>
     <script src="<?= base_url('dashboard_assets/libs/node-waves/waves.min.js') ?>"></script>
 
+    <!-- Required datatable js -->
+    <script src="<?= base_url('dashboard_assets/libs/datatables.net/js/jquery.dataTables.min.js') ?>"></script>
+    <script src="<?= base_url('dashboard_assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js') ?>"></script>
+
+    <!-- Responsive examples -->
+    <script src="<?= base_url('dashboard_assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') ?>"></script>
+    <script src="<?= base_url('dashboard_assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') ?>"></script>
+
     <!-- apexcharts -->
     <script src="<?= base_url('dashboard_assets/libs/apexcharts/apexcharts.min.js') ?>"></script>
 
@@ -163,6 +181,12 @@
 
     <!-- App js -->
     <script src="<?= base_url('dashboard_assets/js/app.js') ?>"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.datatable').DataTable();
+        });
+    </script>
 
     <?php if (session()->get('success')): ?>
         <script>

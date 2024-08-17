@@ -51,4 +51,12 @@ class SeminarKemajuan extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Relationships Table Users
+    public function getSeminarKemajuanWithUsers()
+    {
+        return $this->select('users.*, seminar_kemajuan.*')
+            ->join('users', 'users.id = seminar_kemajuan.user_id')
+            ->findAll();
+    }
 }

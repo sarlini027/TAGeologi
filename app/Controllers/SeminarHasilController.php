@@ -85,4 +85,13 @@ class SeminarHasilController extends BaseController
             return redirect()->back()->withInput()->with('error', $th->getMessage());
         }
     }
+
+    public function listPengajuan()
+    {
+        $seminarHasilModel = new SeminarHasil();
+        $data['seminarHasil'] = $seminarHasilModel->getSeminarHasilWithUsers();
+        $data['title'] = 'List Pengajuan Seminar Hasil';
+
+        return view('dashboard/seminar-hasil/list-pengajuan', $data);
+    }
 }

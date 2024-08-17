@@ -117,4 +117,13 @@ class SidangAkhirController extends BaseController
             return redirect()->back()->withInput()->with('error', $th->getMessage());
         }
     }
+
+    public function listPengajuan()
+    {
+        $sidangAkhirModel = new SidangAkhir();
+        $data['sidangAkhir'] = $sidangAkhirModel->getSidangAkhirWithUsers();
+        $data['title'] = 'List Pengajuan Sidang Akhir';
+
+        return view('dashboard/sidang-akhir/list-pengajuan', $data);
+    }
 }

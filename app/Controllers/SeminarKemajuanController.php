@@ -47,16 +47,21 @@ class SeminarKemajuanController extends BaseController
             $draftProposal = $this->request->getFile('draft_proposal');
             $lembarSeminar = $this->request->getFile('lembar_seminar');
 
+            // declare the file name
+            $folderFile = 'uploads/seminar-kemajuan/';
+            $folderFileDraftProposal = $folderFile . 'draft-proposal/';
+            $folderFileLembarSeminar = $folderFile . 'lembar-pendaftaran/';
+
             // Move the files
-            $draftProposal->move('uploads/seminar-kemajuan/draft-proposal');
-            $lembarSeminar->move('uploads/seminar-kemajuan/lembar-pendaftaran');
+            $draftProposal->move($folderFileDraftProposal);
+            $lembarSeminar->move($folderFileLembarSeminar);
 
             // Save to database
             $seminarKemajuanModel = new SeminarKemajuan();
             $saveSeminar = $seminarKemajuanModel->insert([
                 'user_id' => session()->user['id'],
-                'draft_proposal' => $draftProposal->getName(),
-                'lembar_pendaftaran' => $lembarSeminar->getName(),
+                'draft_proposal' => base_url($folderFileDraftProposal) . $draftProposal->getName(),
+                'lembar_pendaftaran' => base_url($folderFileLembarSeminar) . $lembarSeminar->getName(),
             ]);
 
             if ($saveSeminar) {
@@ -67,5 +72,14 @@ class SeminarKemajuanController extends BaseController
         } catch (\Throwable $th) {
             return redirect()->back()->withInput()->with('error', $th->getMessage());
         }
+    }
+
+    public function listPengajuan()
+    {
+        $seminarKemajuanModel = new SeminarKemajuan();
+        $data['seminarKemajuan'] = $seminarKemajuanModel->getSeminarKemajuanWithUsers();
+        $data['title'] = 'List Pengajuan Seminar Kemajuan';
+
+        return view('dashboard/seminar-kemajuan/list-pengajuan', $data);
     }
 }

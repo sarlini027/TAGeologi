@@ -38,7 +38,7 @@
                         <span key="t-seminar-kemajuan">Seminar Kemajuan</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
+                        <li><a href="<?= base_url('/seminar-kemajuan/list-pengajuan') ?>" key="t-list-pengajuan">List Pengajuan</a></li>
                         <li><a href="#" key="t-list-validasi">List Validasi</a></li>
                     </ul>
                 </li>
@@ -48,7 +48,7 @@
                         <span key="t-seminar-hasil">Seminar Hasil</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
+                        <li><a href="<?= base_url('/seminar-hasil/list-pengajuan') ?>" key="t-list-pengajuan">List Pengajuan</a></li>
                         <li><a href="#" key="t-list-validasi">List Validasi</a></li>
                     </ul>
                 </li>
@@ -58,7 +58,7 @@
                         <span key="t-sidang-akhir">Sidang Akhir</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="#" key="t-list-pengajuan">List Pengajuan</a></li>
+                        <li><a href="<?= base_url('/sidang-akhir/list-pengajuan') ?>" key="t-list-pengajuan">List Pengajuan</a></li>
                         <li><a href="#" key="t-list-validasi">List Validasi</a></li>
                     </ul>
                 </li>
@@ -86,6 +86,12 @@
                     <a href="#" class="waves-effect">
                         <i class="bx bx-user"></i>
                         <span key="t-dosen">Data Dosen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="waves-effect">
+                        <i class="bx bx-file"></i>
+                        <span key="t-template">Data Template</span>
                     </a>
                 </li>
             <?php endif; ?>

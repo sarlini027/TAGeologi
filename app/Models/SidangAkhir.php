@@ -56,4 +56,12 @@ class SidangAkhir extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    // Relationships Table Users
+    public function getSidangAkhirWithUsers()
+    {
+        return $this->select('users.*, sidang_akhir.*')
+            ->join('users', 'users.id = sidang_akhir.user_id')
+            ->findAll();
+    }
 }
