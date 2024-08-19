@@ -2,6 +2,10 @@
 
 use App\Controllers\AuthController;
 use App\Controllers\DashboardController;
+use App\Controllers\DataDosenController;
+use App\Controllers\DataIndikatorPenilaianController;
+use App\Controllers\DataMahasiswaController;
+use App\Controllers\DataTemplateController;
 use App\Controllers\SeminarHasilController;
 use App\Controllers\SeminarKemajuanController;
 use App\Controllers\SidangAkhirController;
@@ -58,4 +62,19 @@ $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($rou
 
     // List Riwayat Pengajuan
     $routes->get('list-riwayat-pengajuan', [SidangAkhirController::class, 'listRiwayatPengajuan']);
+});
+
+$routes->group('data-mahasiswa', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [DataMahasiswaController::class, 'index']);
+});
+
+$routes->group('data-dosen', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [DataDosenController::class, 'index']);
+});
+
+$routes->group('indikator-penilaian', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [DataIndikatorPenilaianController::class, 'index']);
+
+    // Detail
+    $routes->get('detail/(:num)', [DataIndikatorPenilaianController::class, 'detail/$1']);
 });

@@ -80,21 +80,27 @@
 
                 <?php if (session()->user['role'] == 'admin'): ?>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="<?= base_url('/data-mahasiswa') ?>" class="waves-effect">
                             <i class="bx bx-group"></i>
                             <span key="t-mahasiswa">Data Mahasiswa</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="<?= base_url('/data-dosen') ?>" class="waves-effect">
                             <i class="bx bx-user"></i>
                             <span key="t-dosen">Data Dosen</span>
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="waves-effect">
+                        <a href="<?= base_url('/data-template-dokumen') ?>" class="waves-effect">
                             <i class="bx bx-file"></i>
                             <span key="t-template">Data Template</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?= base_url('/indikator-penilaian') ?>" class="waves-effect">
+                            <i class="bx bx-folder"></i>
+                            <span key="t-indikator-penilaian">Indikator Penilaian</span>
                         </a>
                     </li>
                 <?php endif; ?>
