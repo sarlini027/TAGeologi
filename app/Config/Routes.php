@@ -80,6 +80,9 @@ $routes->group('data-dosen', ['filter' => 'authfilter'], static function ($route
 
 $routes->group('data-template-dokumen', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [DataTemplateController::class, 'index']);
+    $routes->post('/', [DataTemplateController::class, 'store']);
+    $routes->post('update/(:num)', [DataTemplateController::class, 'update/$1']);
+    $routes->post('delete/(:num)', [DataTemplateController::class, 'delete/$1']);
 });
 
 $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static function ($routes) {
