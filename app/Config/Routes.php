@@ -61,6 +61,7 @@ $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($rou
 
     // List Pengajuan
     $routes->get('list-pengajuan', [SidangAkhirController::class, 'listPengajuan']);
+    $routes->post('validasi/(:num)', [SidangAkhirController::class, 'validasi/$1']);
 
     // List Riwayat Pengajuan
     $routes->get('list-riwayat-pengajuan', [SidangAkhirController::class, 'listRiwayatPengajuan']);

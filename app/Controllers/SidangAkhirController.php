@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SidangAkhir;
+use App\Models\User;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SidangAkhirController extends BaseController
@@ -118,11 +119,47 @@ class SidangAkhirController extends BaseController
         }
     }
 
+    public function validasi($id)
+    {
+        $rules = [
+            'id_dosen_pembimbing_1' => 'required',
+            'id_dosen_penguji_1'    => 'required',
+            'id_dosen_penguji_2'    => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $dataUpdateSeminar = [
+            'id_dosen_pembimbing_1' => $this->request->getPost('id_dosen_pembimbing_1'),
+            'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
+            'id_dosen_penguji_2'    => $this->request->getPost('id_dosen_penguji_2'),
+            'status_validasi'       => true,
+        ];
+
+        if($this->request->getPost('id_dosen_pembimbing_2')) {
+            $dataUpdateSeminar['id_dosen_pembimbing_2'] = $this->request->getPost('id_dosen_pembimbing_2');
+        }
+
+        $sidangAkhirModel = new SidangAkhir();
+        $updateSeminar = $sidangAkhirModel->update($id, $dataUpdateSeminar);
+
+        if ($updateSeminar) {
+            return redirect()->back()->with('success', 'Sidang akhir berhasil divalidasi');
+        } else {
+            return redirect()->back()->with('error', 'Gagal validasi sidang akhir');
+        }
+    }
+
     public function listPengajuan()
     {
         $sidangAkhirModel = new SidangAkhir();
         $data['sidangAkhir'] = $sidangAkhirModel->getSidangAkhirWithUsers();
         $data['title'] = 'List Pengajuan Sidang Akhir';
+
+        $userModel = new User();
+        $data['listDosen'] = $userModel->getDosen();
 
         return view('dashboard/sidang-akhir/list-pengajuan', $data);
     }

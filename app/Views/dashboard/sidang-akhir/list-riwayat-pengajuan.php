@@ -11,6 +11,10 @@
                             <th>No</th>
                             <th>Nama</th>
                             <th>NIM</th>
+                            <th>Dosen Pembimbing 1</th>
+                            <th>Dosen Pembimbing 2</th>
+                            <th>Dosen Penguji 1</th>
+                            <th>Dosen Penguji 2</th>
                             <th>Form Sidang</th>
                             <th>Form Bimbingan</th>
                             <th>Form Bimbingan</th>
@@ -27,6 +31,10 @@
                                 <td><?= $key + 1 ?></td>
                                 <td><?= $value['nama_lengkap'] ?></td>
                                 <td><?= $value['username'] ?></td>
+                                <td><?= $value['dosen_pembimbing_1']['nama_lengkap'] ?? '-' ?></td>
+                                <td><?= $value['dosen_pembimbing_2']['nama_lengkap'] ?? '-' ?></td>
+                                <td><?= $value['dosen_penguji_1']['nama_lengkap'] ?? '-' ?></td>
+                                <td><?= $value['dosen_penguji_2']['nama_lengkap'] ?? '-' ?></td>
                                 <td>
                                     <a href="<?= $value['form_pendaftaran'] ?>" class="btn btn-sm btn-primary" target="_blank">Download</a>
                                 </td>

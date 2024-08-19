@@ -68,9 +68,19 @@ class SidangAkhir extends Model
 
     public function getRiwayatPengajuan()
     {
-        return $this->select('users.*, sidang_akhir.*')
+        $riwayatPengajuan = $this->select('users.*, sidang_akhir.*')
             ->join('users', 'users.id = sidang_akhir.user_id')
             ->where('sidang_akhir.status_validasi', 1)
             ->findAll();
+
+        // looping data riwayat pengajuan untuk mendapatkan data dosen
+        foreach ($riwayatPengajuan as $key => $value) {
+            $riwayatPengajuan[$key]['dosen_pembimbing_1'] = (new User())->find($value['id_dosen_pembimbing_1']);
+            $riwayatPengajuan[$key]['dosen_pembimbing_2'] = (new User())->find($value['id_dosen_pembimbing_2']);
+            $riwayatPengajuan[$key]['dosen_penguji_1'] = (new User())->find($value['id_dosen_penguji_1']);
+            $riwayatPengajuan[$key]['dosen_penguji_2'] = (new User())->find($value['id_dosen_penguji_2']);
+        }
+
+        return $riwayatPengajuan;
     }
 }

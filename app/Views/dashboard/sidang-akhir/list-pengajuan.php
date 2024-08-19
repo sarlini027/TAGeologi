@@ -46,9 +46,67 @@
                                     <?= $value['nilai_kompre'] ?>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-sm btn-success">Validasi</a>
+                                <button type="button" class="btn btn-sm btn-success waves-effect waves-light" data-bs-toggle="modal" data-bs-target="#addModal">Validasi</button>
                                 </td>
                             </tr>
+
+                            <div id="addModal" class="modal fade" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="addModalLabel">Validasi <?= $title ?></h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <form action="<?= base_url('sidang-akhir/validasi/' . $value['id']) ?>" method="post">
+                                            <?= csrf_field() ?>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="id_dosen_pembimbing_1">Dosen Pembimbing 1</label>
+                                                        <select class="form-select" name="id_dosen_pembimbing_1">
+                                                            <option value="">Silahkan Pilih</option>
+                                                            <?php foreach ($listDosen as $key => $value): ?>
+                                                                <option value="<?= $value['id'] ?>"><?= $value['nama_lengkap'] ?> - <?= $value['username'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="id_dosen_pembimbing_2">Dosen Pembimbing 2</label>
+                                                        <select class="form-select" name="id_dosen_pembimbing_2">
+                                                            <option value="">Silahkan Pilih</option>
+                                                            <?php foreach ($listDosen as $key => $value): ?>
+                                                                <option value="<?= $value['id'] ?>"><?= $value['nama_lengkap'] ?> - <?= $value['username'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="id_dosen_penguji_1">Dosen Penguji 1</label>
+                                                        <select class="form-select" name="id_dosen_penguji_1">
+                                                            <option value="">Silahkan Pilih</option>
+                                                            <?php foreach ($listDosen as $key => $value): ?>
+                                                                <option value="<?= $value['id'] ?>"><?= $value['nama_lengkap'] ?> - <?= $value['username'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="id_dosen_penguji_2">Dosen Penguji 2</label>
+                                                        <select class="form-select" name="id_dosen_penguji_2">
+                                                            <option value="">Silahkan Pilih</option>
+                                                            <?php foreach ($listDosen as $key => $value): ?>
+                                                                <option value="<?= $value['id'] ?>"><?= $value['nama_lengkap'] ?> - <?= $value['username'] ?></option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger waves-effect" data-bs-dismiss="modal">Batal</button>
+                                                <button type="submit" class="btn btn-dark waves-effect waves-light">Simpan</button>
+                                            </div>
+                                        </form>
+                                    </div><!-- /.modal-content -->
+                                </div>
+                            </div>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
