@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SeminarHasil;
+use App\Models\User;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SeminarHasilController extends BaseController
@@ -86,11 +87,47 @@ class SeminarHasilController extends BaseController
         }
     }
 
+    public function validasi($id)
+    {
+        $rules = [
+            'id_dosen_pembimbing_1' => 'required',
+            'id_dosen_penguji_1'    => 'required',
+            'id_dosen_penguji_2'    => 'required'
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $dataUpdateSeminar = [
+            'id_dosen_pembimbing_1' => $this->request->getPost('id_dosen_pembimbing_1'),
+            'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
+            'id_dosen_penguji_2'    => $this->request->getPost('id_dosen_penguji_2'),
+            'status_validasi'       => true,
+        ];
+
+        if($this->request->getPost('id_dosen_pembimbing_2')) {
+            $dataUpdateSeminar['id_dosen_pembimbing_2'] = $this->request->getPost('id_dosen_pembimbing_2');
+        }
+
+        $seminarHasilModel = new SeminarHasil();
+        $updateSeminar = $seminarHasilModel->update($id, $dataUpdateSeminar);
+
+        if ($updateSeminar) {
+            return redirect()->back()->with('success', 'Seminar hasil berhasil divalidasi');
+        } else {
+            return redirect()->back()->with('error', 'Gagal validasi seminar hasil');
+        }
+    }
+
     public function listPengajuan()
     {
         $seminarHasilModel = new SeminarHasil();
         $data['seminarHasil'] = $seminarHasilModel->getSeminarHasilWithUsers();
         $data['title'] = 'List Pengajuan Seminar Hasil';
+
+        $userModel = new User();
+        $data['listDosen'] = $userModel->getDosen();
 
         return view('dashboard/seminar-hasil/list-pengajuan', $data);
     }
