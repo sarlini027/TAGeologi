@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\SeminarKemajuan;
+use App\Models\User;
 use CodeIgniter\HTTP\ResponseInterface;
 
 class SeminarKemajuanController extends BaseController
@@ -74,11 +75,49 @@ class SeminarKemajuanController extends BaseController
         }
     }
 
+    public function validasi($id)
+    {
+        $rules = [
+            'id_dosen_pembimbing_1' => 'required',
+            'id_dosen_penguji_1'    => 'required',
+        ];
+
+        if (!$this->validate($rules)) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $dataUpdateSeminar = [
+            'id_dosen_pembimbing_1' => $this->request->getPost('id_dosen_pembimbing_1'),
+            'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
+            'status_validasi'       => true,
+        ];
+
+        if($this->request->getPost('id_dosen_pembimbing_2')) {
+            $dataUpdateSeminar['id_dosen_pembimbing_2'] = $this->request->getPost('id_dosen_pembimbing_2');
+        }
+
+        if($this->request->getPost('id_dosen_penguji_2')) {
+            $dataUpdateSeminar['id_dosen_penguji_2'] = $this->request->getPost('id_dosen_penguji_2');
+        }
+
+        $seminarKemajuanModel = new SeminarKemajuan();
+        $updateSeminar = $seminarKemajuanModel->update($id, $dataUpdateSeminar);
+
+        if ($updateSeminar) {
+            return redirect()->back()->with('success', 'Seminar kemajuan berhasil divalidasi');
+        } else {
+            return redirect()->back()->with('error', 'Gagal validasi seminar kemajuan');
+        }
+    }
+
     public function listPengajuan()
     {
         $seminarKemajuanModel = new SeminarKemajuan();
         $data['seminarKemajuan'] = $seminarKemajuanModel->getSeminarKemajuanWithUsers();
         $data['title'] = 'List Pengajuan Seminar Kemajuan';
+
+        $userModel = new User();
+        $data['listDosen'] = $userModel->getDosen();
 
         return view('dashboard/seminar-kemajuan/list-pengajuan', $data);
     }

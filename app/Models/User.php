@@ -43,4 +43,9 @@ class User extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    public function getDosen()
+    {
+        return $this->where('role', 'dosen')->findAll();
+    }
 }

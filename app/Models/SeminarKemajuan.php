@@ -16,6 +16,7 @@ class SeminarKemajuan extends Model
         'user_id',
         'draft_proposal',
         'lembar_pendaftaran',
+        'status_validasi',
         'id_dosen_penguji_1',
         'id_dosen_penguji_2',
         'id_dosen_pembimbing_1',
@@ -63,9 +64,19 @@ class SeminarKemajuan extends Model
 
     public function getRiwayatPengajuan()
     {
-        return $this->select('users.*, seminar_kemajuan.*')
+        $riwayatPengajuan = $this->select('users.*, seminar_kemajuan.*')
             ->join('users', 'users.id = seminar_kemajuan.user_id')
             ->where('seminar_kemajuan.status_validasi', 1)
             ->findAll();
+
+        // looping data riwayat pengajuan untuk mendapatkan data dosen
+        foreach ($riwayatPengajuan as $key => $value) {
+            $riwayatPengajuan[$key]['dosen_pembimbing_1'] = (new User())->find($value['id_dosen_pembimbing_1']);
+            $riwayatPengajuan[$key]['dosen_pembimbing_2'] = (new User())->find($value['id_dosen_pembimbing_2']);
+            $riwayatPengajuan[$key]['dosen_penguji_1'] = (new User())->find($value['id_dosen_penguji_1']);
+            $riwayatPengajuan[$key]['dosen_penguji_2'] = (new User())->find($value['id_dosen_penguji_2']);
+        }
+
+        return $riwayatPengajuan;
     }
 }

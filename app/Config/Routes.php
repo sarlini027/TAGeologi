@@ -37,6 +37,7 @@ $routes->group('seminar-kemajuan', ['filter' => 'authfilter'], static function (
 
     // List Pengajuan
     $routes->get('list-pengajuan', [SeminarKemajuanController::class, 'listPengajuan']);
+    $routes->post('validasi/(:num)', [SeminarKemajuanController::class, 'validasi/$1']);
 
     // List Riwayat Pengajuan
     $routes->get('list-riwayat-pengajuan', [SeminarKemajuanController::class, 'listRiwayatPengajuan']);
