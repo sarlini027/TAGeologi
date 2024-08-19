@@ -57,6 +57,15 @@ class SeminarKemajuan extends Model
     {
         return $this->select('users.*, seminar_kemajuan.*')
             ->join('users', 'users.id = seminar_kemajuan.user_id')
+            ->where('seminar_kemajuan.status_validasi', 0)
+            ->findAll();
+    }
+
+    public function getRiwayatPengajuan()
+    {
+        return $this->select('users.*, seminar_kemajuan.*')
+            ->join('users', 'users.id = seminar_kemajuan.user_id')
+            ->where('seminar_kemajuan.status_validasi', 1)
             ->findAll();
     }
 }

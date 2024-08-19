@@ -62,6 +62,15 @@ class SidangAkhir extends Model
     {
         return $this->select('users.*, sidang_akhir.*')
             ->join('users', 'users.id = sidang_akhir.user_id')
+            ->where('sidang_akhir.status_validasi', 0)
+            ->findAll();
+    }
+
+    public function getRiwayatPengajuan()
+    {
+        return $this->select('users.*, sidang_akhir.*')
+            ->join('users', 'users.id = sidang_akhir.user_id')
+            ->where('sidang_akhir.status_validasi', 1)
             ->findAll();
     }
 }

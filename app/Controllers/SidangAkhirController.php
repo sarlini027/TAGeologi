@@ -126,4 +126,13 @@ class SidangAkhirController extends BaseController
 
         return view('dashboard/sidang-akhir/list-pengajuan', $data);
     }
+
+    public function listRiwayatPengajuan()
+    {
+        $sidangAkhirModel = new SidangAkhir();
+        $data['sidangAkhir'] = $sidangAkhirModel->getRiwayatPengajuan();
+        $data['title'] = 'List Riwayat Pengajuan Sidang Akhir';
+
+        return view('dashboard/sidang-akhir/list-riwayat-pengajuan', $data);
+    }
 }

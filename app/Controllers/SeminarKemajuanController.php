@@ -82,4 +82,13 @@ class SeminarKemajuanController extends BaseController
 
         return view('dashboard/seminar-kemajuan/list-pengajuan', $data);
     }
+
+    public function listRiwayatPengajuan()
+    {
+        $seminarKemajuanModel = new SeminarKemajuan();
+        $data['seminarKemajuan'] = $seminarKemajuanModel->getRiwayatPengajuan();
+        $data['title'] = 'List Riwayat Pengajuan Seminar Kemajuan';
+
+        return view('dashboard/seminar-kemajuan/list-riwayat-pengajuan', $data);
+    }
 }

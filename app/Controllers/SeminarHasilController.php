@@ -94,4 +94,13 @@ class SeminarHasilController extends BaseController
 
         return view('dashboard/seminar-hasil/list-pengajuan', $data);
     }
+
+    public function listRiwayatPengajuan()
+    {
+        $seminarHasilModel = new SeminarHasil();
+        $data['seminarHasil'] = $seminarHasilModel->getRiwayatPengajuan();
+        $data['title'] = 'List Riwayat Pengajuan Seminar Hasil';
+
+        return view('dashboard/seminar-hasil/list-riwayat-pengajuan', $data);
+    }
 }

@@ -33,6 +33,9 @@ $routes->group('seminar-kemajuan', ['filter' => 'authfilter'], static function (
 
     // List Pengajuan
     $routes->get('list-pengajuan', [SeminarKemajuanController::class, 'listPengajuan']);
+
+    // List Riwayat Pengajuan
+    $routes->get('list-riwayat-pengajuan', [SeminarKemajuanController::class, 'listRiwayatPengajuan']);
 });
 
 $routes->group('seminar-hasil', ['filter' => 'authfilter'], static function ($routes) {
@@ -41,6 +44,9 @@ $routes->group('seminar-hasil', ['filter' => 'authfilter'], static function ($ro
 
     // List Pengajuan
     $routes->get('list-pengajuan', [SeminarHasilController::class, 'listPengajuan']);
+
+    // List Riwayat Pengajuan
+    $routes->get('list-riwayat-pengajuan', [SeminarHasilController::class, 'listRiwayatPengajuan']);
 });
 
 $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($routes) {
@@ -49,4 +55,7 @@ $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($rou
 
     // List Pengajuan
     $routes->get('list-pengajuan', [SidangAkhirController::class, 'listPengajuan']);
+
+    // List Riwayat Pengajuan
+    $routes->get('list-riwayat-pengajuan', [SidangAkhirController::class, 'listRiwayatPengajuan']);
 });
