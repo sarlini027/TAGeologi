@@ -66,10 +66,20 @@ $routes->group('sidang-akhir', ['filter' => 'authfilter'], static function ($rou
 
 $routes->group('data-mahasiswa', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [DataMahasiswaController::class, 'index']);
+    $routes->post('/', [DataMahasiswaController::class, 'store']);
+    $routes->post('update/(:num)', [DataMahasiswaController::class, 'update/$1']);
+    $routes->post('delete/(:num)', [DataMahasiswaController::class, 'delete/$1']);
 });
 
 $routes->group('data-dosen', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [DataDosenController::class, 'index']);
+    $routes->post('/', [DataDosenController::class, 'store']);
+    $routes->post('update/(:num)', [DataDosenController::class, 'update/$1']);
+    $routes->post('delete/(:num)', [DataDosenController::class, 'delete/$1']);
+});
+
+$routes->group('data-template-dokumen', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [DataTemplateController::class, 'index']);
 });
 
 $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static function ($routes) {

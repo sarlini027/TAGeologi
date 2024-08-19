@@ -183,7 +183,7 @@
     <script src="<?= base_url('dashboard_assets/js/app.js') ?>"></script>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('.datatable').DataTable();
         });
     </script>

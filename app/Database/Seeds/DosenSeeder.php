@@ -14,13 +14,13 @@ class DosenSeeder extends Seeder
         $userMode->insertBatch([
             [
                 'nama_lengkap'  => 'Siswanto, M.TI., Ph.D.',
-                'username'      => 'siswanto',
+                'username'      => '999',
                 'password'      => password_hash('12345', PASSWORD_DEFAULT),
                 'role'          => 'dosen'
             ],
             [
                 'nama_lengkap'  => 'Rahmat Hidayat, S.T., M.T.',
-                'username'      => 'rahmat',
+                'username'      => '998',
                 'password'      => password_hash('12345', PASSWORD_DEFAULT),
                 'role'         => 'dosen'
             ]
