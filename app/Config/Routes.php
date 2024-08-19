@@ -87,7 +87,13 @@ $routes->group('data-template-dokumen', ['filter' => 'authfilter'], static funct
 
 $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [DataIndikatorPenilaianController::class, 'index']);
+    $routes->post('/', [DataIndikatorPenilaianController::class, 'store']);
+    $routes->post('update/(:num)', [DataIndikatorPenilaianController::class, 'update/$1']);
+    $routes->post('delete/(:num)', [DataIndikatorPenilaianController::class, 'delete/$1']);
 
     // Detail
     $routes->get('detail/(:num)', [DataIndikatorPenilaianController::class, 'detail/$1']);
+    $routes->post('detail/(:num)', [DataIndikatorPenilaianController::class, 'storeDetail/$1']);
+    $routes->post('detail/update/(:num)', [DataIndikatorPenilaianController::class, 'updateDetail/$1']);
+    $routes->post('detail/delete/(:num)', [DataIndikatorPenilaianController::class, 'deleteDetail/$1']); 
 });
