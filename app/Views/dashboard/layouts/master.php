@@ -207,6 +207,8 @@
             });
         </script>
     <?php endif; ?>
+
+    <?= $this->renderSection('js') ?>
 </body>
 
 </html>

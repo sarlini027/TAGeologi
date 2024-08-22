@@ -80,6 +80,8 @@ class SeminarKemajuanController extends BaseController
         $rules = [
             'id_dosen_pembimbing_1' => 'required',
             'id_dosen_penguji_1'    => 'required',
+            'tgl_mulai'             => 'required',
+            'ruang'                 => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -90,6 +92,8 @@ class SeminarKemajuanController extends BaseController
             'id_dosen_pembimbing_1' => $this->request->getPost('id_dosen_pembimbing_1'),
             'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
             'status_validasi'       => true,
+            'tgl_mulai'             => $this->request->getPost('tgl_mulai'),
+            'ruang'                 => $this->request->getPost('ruang'),
         ];
 
         if($this->request->getPost('id_dosen_pembimbing_2')) {

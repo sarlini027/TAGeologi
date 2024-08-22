@@ -81,6 +81,14 @@
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="tgl_mulai">Tanggal Mulai</label>
+                                                        <input type="datetime-local" class="form-control" name="tgl_mulai" />
+                                                    </div>
+                                                    <div class="col-md-6 mb-2">
+                                                        <label class="form-label" id="ruang">Ruang</label>
+                                                        <input type="text" class="form-control" name="ruang" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

@@ -31,7 +31,7 @@
                     </li>
                 <?php endif; ?>
 
-                <?php if (session()->user['role'] == 'admin' || session()->user['role'] == 'dosen'): ?>
+                <?php if (session()->user['role'] == 'admin'): ?>
                     <li>
                         <a href="javascript: void(0);" class="waves-effect has-arrow">
                             <i class="bx bx-file"></i>
@@ -71,7 +71,7 @@
                             <span key="t-nilai-ta">Nilai Tugas Akhir</span>
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="#" key="t-seminar-kemajuan">Nilai Seminar Kemajuan</a></li>
+                            <li><a href="<?= base_url('nilai-seminar-kemajuan') ?>" key="t-seminar-kemajuan">Nilai Seminar Kemajuan</a></li>
                             <li><a href="#" key="t-seminar-hasil">Nilai Seminar Hasil</a></li>
                             <li><a href="#" key="t-sidang-akhir">Nilai Sidang Akhir</a></li>
                         </ul>

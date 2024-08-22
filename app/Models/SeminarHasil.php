@@ -22,6 +22,8 @@ class SeminarHasil extends Model
         'id_dosen_penguji_2',
         'id_dosen_pembimbing_1',
         'id_dosen_pembimbing_2',
+        'tgl_mulai',
+        'ruang'
     ];
 
     protected bool $allowEmptyInserts = false;

@@ -4,16 +4,19 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class DetailIndikatorPenilaian extends Model
+class TempPenilaian extends Model
 {
-    protected $table            = 'detail_indikator_penilaian';
+    protected $table            = 'temp_penilaian';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
     protected $allowedFields    = [
-        'id_indikator', 'bobot', 'keterangan'
+        'id_indikator',
+        'id_detail_indikator',
+        'id_dosen',
+        'id_mahasiswa',
     ];
 
     protected bool $allowEmptyInserts = false;
@@ -45,31 +48,4 @@ class DetailIndikatorPenilaian extends Model
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
-
-    // Relationships
-    public function getDetailIndikatorPenilaian($id_indikator)
-    {
-        return $this->where('id_indikator', $id_indikator)->findAll();
-    }
-
-    public function getMaksBobot($tipe) {
-        $indikatorPenilaianModel = new IndikatorPenilaian();
-        $listIndikatorPenilaian = $indikatorPenilaianModel->where('tipe', $tipe)->findAll();
-
-        $dataMaksBobot = [];
-
-        foreach ($listIndikatorPenilaian as $row) {
-            $detailIndikatorPenilaian = $this->where('id_indikator', $row['id'])->findAll();
-
-            $bobot = [];
-            foreach ($detailIndikatorPenilaian as $rowDetail) {
-                array_push($bobot, $rowDetail['bobot']);
-            }
-
-            $dataMaksBobot[] = max($bobot);
-        }
-
-        // return $dataMaksBobot;
-        return array_sum($dataMaksBobot);
-    }
 }

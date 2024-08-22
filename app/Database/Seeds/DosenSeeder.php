@@ -23,6 +23,18 @@ class DosenSeeder extends Seeder
                 'username'      => '998',
                 'password'      => password_hash('12345', PASSWORD_DEFAULT),
                 'role'         => 'dosen'
+            ],
+            [
+                'nama_lengkap'  => 'Andri Pranolo, S.T., M.T.',
+                'username'      => '997',
+                'password'      => password_hash('12345', PASSWORD_DEFAULT),
+                'role'         => 'dosen'
+            ],
+            [
+                'nama_lengkap'  => 'Dwi Haryanto, S.T., M.T.',
+                'username'      => '996',
+                'password'      => password_hash('12345', PASSWORD_DEFAULT),
+                'role'         => 'dosen'
             ]
         ]);
     }

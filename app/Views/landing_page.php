@@ -74,58 +74,21 @@
       </div>
 
       <div class="row d-flex contact-info mb-5">
-        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          <div class="align-self-stretch box text-center p-4 bg-light">
-            <div class="icon d-flex align-items-center justify-content-center">
-              <span class="fa fa-file"></span>
-            </div>
-            <div>
-              <h3 class="mb-4">Pendaftaran Kemajuan</h3>
-              <a href="#" target="_blank" class="btn btn-sm btn-primary">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          <div class="align-self-stretch box text-center p-4 bg-light">
-            <div class="icon d-flex align-items-center justify-content-center">
-              <span class="fa fa-calendar"></span>
-            </div>
-            <div>
-              <h3 class="mb-4">Kendali Bimbingan</h3>
-              <a href="#" target="_blank" class="btn btn-sm btn-primary">
-                Download
-              </a>
+        <?php foreach ($file_template as $row): ?>
+          <div class="col-md-6 col-lg-3 d-flex ftco-animate">
+            <div class="align-self-stretch box text-center p-4 bg-light">
+              <div class="icon d-flex align-items-center justify-content-center">
+                <span class="fa fa-file"></span>
+              </div>
+              <div>
+                <h3 class="mb-4"><?= $row['nama_template'] ?></h3>
+                <a href="<?= $row['file_template'] ?>" target="_blank" class="btn btn-sm btn-primary">
+                  Download
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          <div class="align-self-stretch box text-center p-4 bg-light">
-            <div class="icon d-flex align-items-center justify-content-center">
-              <span class="fa fa-users"></span>
-            </div>
-            <div>
-              <h3 class="mb-4">Lembar Bimbingan</h3>
-              <a href="#" target="_blank" class="btn btn-sm btn-primary">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3 d-flex ftco-animate">
-          <div class="align-self-stretch box text-center p-4 bg-light">
-            <div class="icon d-flex align-items-center justify-content-center">
-              <span class="fa fa-list"></span>
-            </div>
-            <div>
-              <h3 class="mb-4">Lembar Kehadiran</h3>
-              <a href="#" target="_blank" class="btn btn-sm btn-primary">
-                Download
-              </a>
-            </div>
-          </div>
-        </div>
+        <?php endforeach; ?>
       </div>
     </div>
   </section>

@@ -92,7 +92,9 @@ class SeminarHasilController extends BaseController
         $rules = [
             'id_dosen_pembimbing_1' => 'required',
             'id_dosen_penguji_1'    => 'required',
-            'id_dosen_penguji_2'    => 'required'
+            'id_dosen_penguji_2'    => 'required',
+            'tgl_mulai'             => 'required',
+            'ruang'                 => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -104,9 +106,11 @@ class SeminarHasilController extends BaseController
             'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
             'id_dosen_penguji_2'    => $this->request->getPost('id_dosen_penguji_2'),
             'status_validasi'       => true,
+            'tgl_mulai'             => $this->request->getPost('tgl_mulai'),
+            'ruang'                 => $this->request->getPost('ruang'),
         ];
 
-        if($this->request->getPost('id_dosen_pembimbing_2')) {
+        if ($this->request->getPost('id_dosen_pembimbing_2')) {
             $dataUpdateSeminar['id_dosen_pembimbing_2'] = $this->request->getPost('id_dosen_pembimbing_2');
         }
 

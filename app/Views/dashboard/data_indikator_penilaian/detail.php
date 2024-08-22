@@ -105,7 +105,7 @@
                     <div class="row">
                         <div class="col-md-12 mb-2">
                             <label class="form-label" id="bobot">Bobot</label>
-                            <input class="form-control" name="bobot" type="number" placeholder="Masukan nama indikator">
+                            <input class="form-control" name="bobot" type="number" placeholder="Masukan bobot">
                         </div>
                         <div class="col-md-12 mb-2">
                             <label class="form-label" id="keterangan">Keterangan</label>

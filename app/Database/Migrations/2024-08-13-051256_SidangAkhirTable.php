@@ -72,6 +72,15 @@ class SidangAkhirTable extends Migration
                 'unsigned'      => true,
                 'null'          => true
             ],
+            'tgl_mulai' => [
+                'type' => 'DATETIME',
+                'null' => true
+            ],
+            'ruang' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255,
+                'null' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'default'   => new RawSql('CURRENT_TIMESTAMP'),

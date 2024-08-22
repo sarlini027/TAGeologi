@@ -33,7 +33,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="bukti_kehadiran" class="col-md-2 col-form-label">Bukti Kehadiran <span style="color: red">*</span></label>
+                        <label for="bukti_kehadiran" class="col-md-2 col-form-label">Bukti Kehadiran <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('bukti_kehadiran') ? 'is-invalid' : '' ?>" type="file"
                                 id="bukti_kehadiran" name="bukti_kehadiran">
@@ -46,7 +46,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="kendali_bimbingan_semhas" class="col-md-2 col-form-label">Kendali Bimbingan Seminar Hasil <span style="color: red">*</span></label>
+                        <label for="kendali_bimbingan_semhas" class="col-md-2 col-form-label">Kendali Bimbingan Seminar Hasil <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('kendali_bimbingan_semhas') ? 'is-invalid' : '' ?>" type="file"
                                 id="kendali_bimbingan_semhas" name="kendali_bimbingan_semhas">
@@ -59,7 +59,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row">
-                        <label for="form_pendaftaran_dosbing" class="col-md-2 col-form-label">Form Pendaftaran Dosbing <span style="color: red">*</span></label>
+                        <label for="form_pendaftaran_dosbing" class="col-md-2 col-form-label">Form Pendaftaran Dosbing <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('form_pendaftaran_dosbing') ? 'is-invalid' : '' ?>" type="file"
                                 id="form_pendaftaran_dosbing" name="form_pendaftaran_dosbing">

@@ -6,6 +6,7 @@ use App\Controllers\DataDosenController;
 use App\Controllers\DataIndikatorPenilaianController;
 use App\Controllers\DataMahasiswaController;
 use App\Controllers\DataTemplateController;
+use App\Controllers\NilaiSeminarKemajuanController;
 use App\Controllers\SeminarHasilController;
 use App\Controllers\SeminarKemajuanController;
 use App\Controllers\SidangAkhirController;
@@ -99,4 +100,9 @@ $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static functio
     $routes->post('detail/(:num)', [DataIndikatorPenilaianController::class, 'storeDetail/$1']);
     $routes->post('detail/update/(:num)', [DataIndikatorPenilaianController::class, 'updateDetail/$1']);
     $routes->post('detail/delete/(:num)', [DataIndikatorPenilaianController::class, 'deleteDetail/$1']); 
+});
+
+$routes->group('nilai-seminar-kemajuan', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [NilaiSeminarKemajuanController::class, 'index']);
+    $routes->post('/', [NilaiSeminarKemajuanController::class, 'storeNilai']);
 });

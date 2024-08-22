@@ -33,7 +33,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="draft_proposal" class="col-md-2 col-form-label">Draft Proposal <span style="color: red">*</span></label>
+                        <label for="draft_proposal" class="col-md-2 col-form-label">Draft Proposal <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('draft_proposal') ? 'is-invalid' : '' ?>" type="file"
                                 id="draft_proposal" name="draft_proposal">
@@ -46,7 +46,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="lembar_seminar" class="col-md-2 col-form-label">Lembar Pendaftaran Seminar <span style="color: red">*</span></label>
+                        <label for="lembar_seminar" class="col-md-2 col-form-label">Lembar Pendaftaran Seminar <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('lembar_seminar') ? 'is-invalid' : '' ?>" type="file"
                                 id="lembar_seminar" name="lembar_seminar">

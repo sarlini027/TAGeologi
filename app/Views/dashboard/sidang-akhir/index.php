@@ -33,7 +33,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="kendali_bimbingan" class="col-md-2 col-form-label">Kendali Bimbingan <span style="color: red">*</span></label>
+                        <label for="kendali_bimbingan" class="col-md-2 col-form-label">Kendali Bimbingan <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('kendali_bimbingan') ? 'is-invalid' : '' ?>" type="file"
                                 id="kendali_bimbingan" name="kendali_bimbingan">
@@ -46,7 +46,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="form_pendaftaran_sidang" class="col-md-2 col-form-label">Form Pendaftaran Sidang <span style="color: red">*</span></label>
+                        <label for="form_pendaftaran_sidang" class="col-md-2 col-form-label">Form Pendaftaran Sidang <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('form_pendaftaran_sidang') ? 'is-invalid' : '' ?>" type="file"
                                 id="form_pendaftaran_sidang" name="form_pendaftaran_sidang">
@@ -59,7 +59,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="form_bimbingan" class="col-md-2 col-form-label">Form Bimbingan <span style="color: red">*</span></label>
+                        <label for="form_bimbingan" class="col-md-2 col-form-label">Form Bimbingan <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('form_bimbingan') ? 'is-invalid' : '' ?>" type="file"
                                 id="form_bimbingan" name="form_bimbingan">
@@ -72,7 +72,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="kehadiran_seminar" class="col-md-2 col-form-label">Kehadiran Seminar <span style="color: red">*</span></label>
+                        <label for="kehadiran_seminar" class="col-md-2 col-form-label">Kehadiran Seminar <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('kehadiran_seminar') ? 'is-invalid' : '' ?>" type="file"
                                 id="kehadiran_seminar" name="kehadiran_seminar">
@@ -85,7 +85,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="nilai_kompre" class="col-md-2 col-form-label">Nilai Kompre <span style="color: red">*</span></label>
+                        <label for="nilai_kompre" class="col-md-2 col-form-label">Nilai Kompre <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('nilai_kompre') ? 'is-invalid' : '' ?>" type="text" id="nilai_kompre" name="nilai_kompre">
                             <?php if ($validation->hasError('nilai_kompre')): ?>
@@ -97,7 +97,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="transkrip_nilai" class="col-md-2 col-form-label">Transkrip Nilai <span style="color: red">*</span></label>
+                        <label for="transkrip_nilai" class="col-md-2 col-form-label">Transkrip Nilai <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('transkrip_nilai') ? 'is-invalid' : '' ?>" type="file"
                                 id="transkrip_nilai" name="transkrip_nilai">
