@@ -85,7 +85,7 @@ $validation = service('validation');
                     </div>
 
                     <div class="mb-3 row align-items-center">
-                        <label for="nilai_kompre" class="col-md-2 col-form-label">Nilai Kompre <span style="color: red">* <small>(PDF, maks: 1mb)</small></span></label>
+                        <label for="nilai_kompre" class="col-md-2 col-form-label">Nilai Kompre <span style="color: red">*</span></label>
                         <div class="col-md-10">
                             <input class="form-control <?= $validation->hasError('nilai_kompre') ? 'is-invalid' : '' ?>" type="text" id="nilai_kompre" name="nilai_kompre">
                             <?php if ($validation->hasError('nilai_kompre')): ?>

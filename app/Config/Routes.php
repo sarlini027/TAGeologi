@@ -105,4 +105,5 @@ $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static functio
 $routes->group('nilai-seminar-kemajuan', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [NilaiSeminarKemajuanController::class, 'index']);
     $routes->post('/', [NilaiSeminarKemajuanController::class, 'storeNilai']);
+    $routes->post('update', [NilaiSeminarKemajuanController::class, 'updateNilai']);
 });
