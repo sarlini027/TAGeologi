@@ -46,19 +46,19 @@
                     <div class="navbar-brand-box">
                         <a href="<?= base_url("/dashboard") ?>" class="logo logo-dark">
                             <span class="logo-sm">
-                                <img src="<?= base_url('dashboard_assets/images/logo.svg') ?>" alt="" height="22">
+                                <img src="<?= base_url('logo/logo.png') ?>" alt="" height="20">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url('dashboard_assets/images/logo-dark.png') ?>" alt="" height="17">
+                                <img src="<?= base_url('logo/logo.png') ?>" alt="" height="80">
                             </span>
                         </a>
 
                         <a href="<?= base_url("/dashboard") ?>" class="logo logo-light">
                             <span class="logo-sm">
-                                <img src="<?= base_url('dashboard_assets/images/logo-light.svg') ?>" alt="" height="22">
+                                <img src="<?= base_url('logo/logo.png') ?>" alt="" height="20">
                             </span>
                             <span class="logo-lg">
-                                <img src="<?= base_url('dashboard_assets/images/logo-light.png') ?>" alt="" height="19">
+                                <img src="<?= base_url('logo/logo.png') ?>" alt="" height="80">
                             </span>
                         </a>
                     </div>
