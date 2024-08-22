@@ -72,8 +72,8 @@
                         </a>
                         <ul class="sub-menu" aria-expanded="false">
                             <li><a href="<?= base_url('nilai-seminar-kemajuan') ?>" key="t-seminar-kemajuan">Nilai Seminar Kemajuan</a></li>
-                            <li><a href="#" key="t-seminar-hasil">Nilai Seminar Hasil</a></li>
-                            <li><a href="#" key="t-sidang-akhir">Nilai Sidang Akhir</a></li>
+                            <li><a href="<?= base_url('nilai-seminar-hasil') ?>"" key="t-seminar-hasil">Nilai Seminar Hasil</a></li>
+                            <li><a href="<?= base_url('nilai-sidang-akhir') ?>"" key="t-sidang-akhir">Nilai Sidang Akhir</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>
