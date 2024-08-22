@@ -56,10 +56,48 @@ class NilaiSeminarKemajuanController extends BaseController
             ];
         }, $data['listAccSeminarKemajuan']);
 
-        // return response()->setJSON($data);
+        // Nilai Total dari seluruh dosen penguji dan pembimbing
+        $data['nilaiTotal'] = [];
+        foreach ($data['listAccSeminarKemajuan'] as $seminarKemajuan) {
+            $tempPenilaianModel = new TempPenilaian();
+            $nilaiSeminarKemajuan = $tempPenilaianModel
+                ->join('detail_indikator_penilaian', 'detail_indikator_penilaian.id = temp_penilaian.id_detail_indikator')
+                ->where('id_mahasiswa', $seminarKemajuan['user_id'])
+                ->findAll();
+
+            if(count($nilaiSeminarKemajuan) > 0) {
+                $total_nilai = (array_sum(array_column($nilaiSeminarKemajuan, 'bobot')) / $maksimal_bobot) * 100;
+                $total_nilai = number_format($total_nilai, 2);
+
+                // total nilai / jumlah dosen yg memberikan nilai (di disctinct) 
+                $total_nilai = ($total_nilai / count(array_unique(array_column($nilaiSeminarKemajuan, 'id_dosen'))));
+                $total_nilai = number_format($total_nilai, 2);
+            } else {
+                $total_nilai = 0;
+            }
+
+            $data['nilaiTotal'][] = [
+                'id_mahasiswa' => $seminarKemajuan['user_id'],
+                'jumlah_nilai' => $total_nilai,
+            ];
+        }
+
+        // merge nilai total ke list acc seminar kemajuan
+        $data['listAccSeminarKemajuan'] = array_map(function ($seminarKemajuan) use ($data) {
+            $nilaiTotal = array_filter($data['nilaiTotal'], function ($nilai) use ($seminarKemajuan) {
+                return $nilai['id_mahasiswa'] == $seminarKemajuan['user_id'];
+            });
+
+            return [
+                ...$seminarKemajuan,
+                'nilaiTotal' => count($nilaiTotal) > 0 ? $nilaiTotal[0]['jumlah_nilai'] : 0,
+            ];
+        }, $data['listAccSeminarKemajuan']);
 
         $data['formattedDataIndikatorPenilaian'] = $this->getDataIndikatorPenilaian('seminar_kemajuan');
+        // return response()->setJSON($data['nilaiTotal']);
 
+        // return response()->setJSON($data);
         return view('dashboard/nilai-seminar-kemajuan/index', $data);
     }
 
@@ -106,7 +144,7 @@ class NilaiSeminarKemajuanController extends BaseController
 
         $formattedDataIndikatorPenilaian = [];
         foreach ($listIndikatorPenilaian as $row) {
-            $listDetailIndikatorPenilaian = $detailIndikatorPenilaianModel->where('id_indikator', $row['id'])->findAll();
+            $listDetailIndikatorPenilaian = $detailIndikatorPenilaianModel->where('id_indikator', $row['id'])->orderBy('bobot', 'desc')->findAll();
 
             $formattedDataIndikatorPenilaian[] = [
                 ...$row,

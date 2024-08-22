@@ -12,6 +12,7 @@
                             <th>Nama</th>
                             <th>NIM</th>
                             <th>Nilai</th>
+                            <th>Nilai Total</th>
                             <th>Input Nilai</th>
                         </tr>
                     </thead>
@@ -29,6 +30,7 @@
                                         -
                                     <?php endif; ?>
                                 </td>
+                                <td><?= $value['nilaiTotal'] ?></td>
                                 <td>
                                     <?php if (count($value['nilai']) > 0): ?>
                                         <button type="button" class="btn btn-sm btn-danger waves-effect waves-light" disabled>Edit</button>
