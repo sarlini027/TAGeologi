@@ -6,6 +6,7 @@ use App\Controllers\DataDosenController;
 use App\Controllers\DataIndikatorPenilaianController;
 use App\Controllers\DataMahasiswaController;
 use App\Controllers\DataTemplateController;
+use App\Controllers\LandingPageController;
 use App\Controllers\NilaiSeminarHasilController;
 use App\Controllers\NilaiSeminarKemajuanController;
 use App\Controllers\NilaiSidangAkhirController;
@@ -21,7 +22,8 @@ use CodeIgniter\Router\RouteCollection;
 // misal ketika mengakses /homeadmin maka controlle yang akan digunakan adalah Admincontroller dan fungsi index
 
 
-$routes->get('/', 'LandingPageController::index');
+$routes->get('/', [LandingPageController::class, 'index']);
+$routes->get('/info-bot', [LandingPageController::class, 'infoBotTelegram']);
 
 $routes->get('/auth/login', [AuthController::class, 'login'], ['filter' => 'guestfilter']);
 $routes->post('/auth/login', [AuthController::class, 'login'], ['filter' => 'guestfilter']);
