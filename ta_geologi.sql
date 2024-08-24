@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 22 Agu 2024 pada 02.55
+-- Waktu pembuatan: 24 Agu 2024 pada 21.30
 -- Versi server: 10.4.28-MariaDB
 -- Versi PHP: 8.2.4
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `ta_geologi`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bot_telegram`
+--
+
+CREATE TABLE `bot_telegram` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `chat_id` varchar(255) DEFAULT NULL,
+  `group_id` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `bot_telegram`
+--
+
+INSERT INTO `bot_telegram` (`id`, `token`, `chat_id`, `group_id`, `created_at`, `updated_at`) VALUES
+(1, '7498500525:AAEpDsUpW01MtR8CI5Di_Ep2tt93UOFrS9A', '-1002151170400', NULL, '2024-08-25 01:50:45', '2024-08-25 01:50:45');
 
 -- --------------------------------------------------------
 
@@ -49,7 +71,24 @@ INSERT INTO `detail_indikator_penilaian` (`id`, `id_indikator`, `bobot`, `ketera
 (8, 3, 1, 'Metode tidak dijabarkan dengan baik'),
 (9, 4, 3, 'Alur penelitian dijabarkan dengan sangat jelas dan mudah difahami'),
 (10, 4, 2, 'Alur penelitian dijabarkan dengan cukup jelas dan cukup mudah difahami'),
-(11, 4, 1, 'Alur penelitian tidak dijabarkan dengan baik');
+(11, 4, 1, 'Alur penelitian tidak dijabarkan dengan baik'),
+(12, 5, 4, 'Tidak ada typo dan sesuai format'),
+(13, 5, 3, 'Masih terdapat typo namun sesuai format'),
+(14, 5, 3, 'Tidak terdapat typo namun format kurang tepat'),
+(15, 5, 1, 'Tidak sesuai format dan/atau banyak typo'),
+(16, 6, 4, '(1) Sesuai EYD'),
+(17, 6, 4, '(2) Kalimat mudah difahami'),
+(18, 6, 2, 'Satu kriteria terpenuhi'),
+(19, 7, 4, '(1) Penomoran gambar dan tabel sesuai; (2) semua tabel dan gambar disitir di dalam kalimat'),
+(20, 8, 4, 'Tidak ada typo dan sesuai format'),
+(21, 8, 3, 'Masih terdapat typo namun sesuai format'),
+(22, 8, 3, 'Tidak terdapat typo namun format kurang tepat'),
+(23, 9, 4, '(1) Sesuai EYD'),
+(24, 9, 4, '(2) Kalimat mudah difahami'),
+(25, 9, 2, 'Satu kriteria terpenuhi'),
+(26, 10, 2, 'Tujuan penelitian dapat terukur dengan ruang lingkup yang baik'),
+(27, 10, 1, 'Tujuan penelitian dapat terukur dengan ruang lingkup yang cukup baik'),
+(28, 10, 0, 'Tujuan penelitian dan ruang lingkup tidak dapat dijelaskan dengan baik');
 
 -- --------------------------------------------------------
 
@@ -71,7 +110,13 @@ INSERT INTO `indikator_penilaian` (`id`, `indikator`, `tipe`) VALUES
 (1, 'Latar Belakang dan Tujuan', 'seminar_kemajuan'),
 (2, 'Tinjauan Pustaka', 'seminar_kemajuan'),
 (3, 'Metode Penelitian', 'seminar_kemajuan'),
-(4, 'Metode Penelitian 2', 'seminar_kemajuan');
+(4, 'Metode Penelitian 2', 'seminar_kemajuan'),
+(5, 'Kaidah Penulisan', 'seminar_hasil'),
+(6, 'Kaidah Penulisan 2', 'seminar_hasil'),
+(7, 'Kaidah Penulisan 3', 'seminar_hasil'),
+(8, 'Kaidah Penulisan', 'sidang_akhir'),
+(9, 'Kaidah Penulisan 2', 'sidang_akhir'),
+(10, 'Latar Belakang dan tujuan', 'sidang_akhir');
 
 -- --------------------------------------------------------
 
@@ -102,7 +147,8 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (33, '2024-08-19-051239', 'App\\Database\\Migrations\\DetailIndikatorPenilaianTable', 'default', 'App', 1724288083, 1),
 (34, '2024-08-19-053239', 'App\\Database\\Migrations\\PenilaianTable', 'default', 'App', 1724288083, 1),
 (35, '2024-08-19-053821', 'App\\Database\\Migrations\\TemplateTable', 'default', 'App', 1724288083, 1),
-(36, '2024-08-19-183921', 'App\\Database\\Migrations\\TempPenilaianTable', 'default', 'App', 1724288083, 1);
+(36, '2024-08-19-183921', 'App\\Database\\Migrations\\TempPenilaianTable', 'default', 'App', 1724288083, 1),
+(37, '2024-08-24-182447', 'App\\Database\\Migrations\\BotTelegramTable', 'default', 'App', 1724523993, 2);
 
 -- --------------------------------------------------------
 
@@ -140,6 +186,15 @@ CREATE TABLE `seminar_hasil` (
   `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data untuk tabel `seminar_hasil`
+--
+
+INSERT INTO `seminar_hasil` (`id`, `user_id`, `bukti_kehadiran`, `kendali_bimbingan`, `form_pendaftaran`, `status_validasi`, `id_dosen_penguji_1`, `id_dosen_penguji_2`, `id_dosen_pembimbing_1`, `id_dosen_pembimbing_2`, `tgl_mulai`, `ruang`, `created_at`, `updated_at`) VALUES
+(1, 2, 'http://localhost:8080/uploads/seminar-hasil/bukti-kehadiran/KHS_2023_2024_GENAP.pdf', 'http://localhost:8080/uploads/seminar-hasil/kendali-bimbingan/Desain tanpa judul.pdf', 'http://localhost:8080/uploads/seminar-hasil/form-pendaftaran-dosbing/Desain tanpa judul.pdf', 1, 7, 8, 6, NULL, '2024-08-23 01:28:00', 'Ruang M.11', '2024-08-23 01:25:02', '2024-08-23 01:25:02'),
+(2, 3, 'http://localhost:8080/uploads/seminar-hasil/bukti-kehadiran/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 'http://localhost:8080/uploads/seminar-hasil/kendali-bimbingan/1723102609533-5727-Article Text-16632-1-10-20221106 (1).pdf', 'http://localhost:8080/uploads/seminar-hasil/form-pendaftaran-dosbing/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 1, 7, NULL, 6, NULL, '2024-08-23 01:28:00', 'Ruang M.10', '2024-08-23 01:26:22', '2024-08-23 01:26:22'),
+(3, 4, 'http://localhost:8080/uploads/seminar-hasil/bukti-kehadiran/Desain tanpa judul.pdf', 'http://localhost:8080/uploads/seminar-hasil/kendali-bimbingan/Desain tanpa judul.pdf', 'http://localhost:8080/uploads/seminar-hasil/form-pendaftaran-dosbing/Desain tanpa judul.pdf', 1, 5, 7, 6, NULL, '2024-08-25 02:21:00', 'Ruang M.11', '2024-08-25 02:03:36', '2024-08-25 02:03:36');
+
 -- --------------------------------------------------------
 
 --
@@ -161,6 +216,15 @@ CREATE TABLE `seminar_kemajuan` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `seminar_kemajuan`
+--
+
+INSERT INTO `seminar_kemajuan` (`id`, `user_id`, `draft_proposal`, `lembar_pendaftaran`, `status_validasi`, `id_dosen_penguji_1`, `id_dosen_penguji_2`, `id_dosen_pembimbing_1`, `id_dosen_pembimbing_2`, `tgl_mulai`, `ruang`, `created_at`, `updated_at`) VALUES
+(1, 2, 'http://localhost:8080/uploads/seminar-kemajuan/draft-proposal/1723102609533-5727-Article Text-16632-1-10-20221106 (1).pdf', 'http://localhost:8080/uploads/seminar-kemajuan/lembar-pendaftaran/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 1, 7, NULL, 6, NULL, '2024-08-22 19:19:00', 'Ruang M.23', '2024-08-22 19:17:41', '2024-08-22 19:17:41'),
+(2, 3, 'http://localhost:8080/uploads/seminar-kemajuan/draft-proposal/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 'http://localhost:8080/uploads/seminar-kemajuan/lembar-pendaftaran/Desain tanpa judul.pdf', 1, 5, NULL, 6, NULL, '2024-08-22 19:19:00', 'Ruang M.10', '2024-08-22 19:18:11', '2024-08-22 19:18:11'),
+(3, 4, 'http://localhost:8080/uploads/seminar-kemajuan/draft-proposal/1723102609533-5727-Article Text-16632-1-10-20221106 (1)_1.pdf', 'http://localhost:8080/uploads/seminar-kemajuan/lembar-pendaftaran/1723102609533-5727-Article Text-16632-1-10-20221106 (1).pdf', 1, 8, NULL, 6, NULL, '2024-08-25 02:24:00', 'Ruang M.11', '2024-08-22 19:18:51', '2024-08-22 19:18:51');
 
 -- --------------------------------------------------------
 
@@ -187,6 +251,14 @@ CREATE TABLE `sidang_akhir` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `sidang_akhir`
+--
+
+INSERT INTO `sidang_akhir` (`id`, `user_id`, `kendali_bimbingan`, `form_pendaftaran`, `form_bimbingan`, `kehadiran_seminar`, `nilai_kompre`, `transkrip_nilai`, `status_validasi`, `id_dosen_penguji_1`, `id_dosen_penguji_2`, `id_dosen_pembimbing_1`, `id_dosen_pembimbing_2`, `tgl_mulai`, `ruang`, `created_at`, `updated_at`) VALUES
+(1, 2, 'http://localhost:8080/uploads/sidang-akhir/kendali-bimbingan/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 'http://localhost:8080/uploads/sidang-akhir/form-pendaftaran-sidang/Desain tanpa judul.pdf', 'http://localhost:8080/uploads/sidang-akhir/form-bimbingan/1723102609533-5727-Article Text-16632-1-10-20221106.pdf', 'http://localhost:8080/uploads/sidang-akhir/kehadiran-seminar/inovasi-126136.pdf', '88', 'http://localhost:8080/uploads/sidang-akhir/transkrip-nilai/inovasi-126136.pdf', 1, 7, 8, 6, NULL, '2024-08-23 02:25:00', 'Ruang M.23', '2024-08-23 01:25:55', '2024-08-23 01:25:55'),
+(2, 3, 'http://localhost:8080/uploads/sidang-akhir/kendali-bimbingan/Desain tanpa judul.pdf', 'http://localhost:8080/uploads/sidang-akhir/form-pendaftaran-sidang/Desain tanpa judul_1.pdf', 'http://localhost:8080/uploads/sidang-akhir/form-bimbingan/1723102609533-5727-Article Text-16632-1-10-20221106_1.pdf', 'http://localhost:8080/uploads/sidang-akhir/kehadiran-seminar/1723102609533-5727-Article Text-16632-1-10-20221106 (1).pdf', '90', 'http://localhost:8080/uploads/sidang-akhir/transkrip-nilai/1723102609533-5727-Article Text-16632-1-10-20221106 (1).pdf', 1, 8, 5, 6, NULL, '2024-08-25 02:27:00', 'Ruang M.23', '2024-08-23 01:26:58', '2024-08-23 01:26:58');
 
 -- --------------------------------------------------------
 
@@ -216,6 +288,30 @@ CREATE TABLE `temp_penilaian` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `temp_penilaian`
+--
+
+INSERT INTO `temp_penilaian` (`id`, `id_indikator`, `id_detail_indikator`, `id_dosen`, `id_mahasiswa`, `created_at`, `updated_at`) VALUES
+(25, 1, 1, 6, 4, NULL, NULL),
+(26, 2, 4, 6, 4, NULL, NULL),
+(27, 3, 6, 6, 4, NULL, NULL),
+(28, 4, 9, 6, 4, NULL, NULL),
+(33, 1, 1, 7, 2, NULL, NULL),
+(34, 2, 5, 7, 2, NULL, NULL),
+(35, 3, 7, 7, 2, NULL, NULL),
+(36, 4, 10, 7, 2, NULL, NULL),
+(86, 1, 1, 6, 2, NULL, NULL),
+(87, 2, 4, 6, 2, NULL, NULL),
+(88, 3, 7, 6, 2, NULL, NULL),
+(89, 4, 9, 6, 2, NULL, NULL),
+(99, 8, 20, 6, 2, NULL, NULL),
+(100, 9, 25, 6, 2, NULL, NULL),
+(101, 10, 26, 6, 2, NULL, NULL),
+(105, 5, 12, 6, 2, NULL, NULL),
+(106, 6, 18, 6, 2, NULL, NULL),
+(107, 7, 19, 6, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -250,6 +346,12 @@ INSERT INTO `users` (`id`, `nama_lengkap`, `username`, `password`, `role`, `crea
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `bot_telegram`
+--
+ALTER TABLE `bot_telegram`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `detail_indikator_penilaian`
@@ -340,22 +442,28 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `bot_telegram`
+--
+ALTER TABLE `bot_telegram`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `detail_indikator_penilaian`
 --
 ALTER TABLE `detail_indikator_penilaian`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `indikator_penilaian`
 --
 ALTER TABLE `indikator_penilaian`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT untuk tabel `penilaian`
@@ -367,19 +475,19 @@ ALTER TABLE `penilaian`
 -- AUTO_INCREMENT untuk tabel `seminar_hasil`
 --
 ALTER TABLE `seminar_hasil`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `seminar_kemajuan`
 --
 ALTER TABLE `seminar_kemajuan`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `sidang_akhir`
 --
 ALTER TABLE `sidang_akhir`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `template`
@@ -391,7 +499,7 @@ ALTER TABLE `template`
 -- AUTO_INCREMENT untuk tabel `temp_penilaian`
 --
 ALTER TABLE `temp_penilaian`
-  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT untuk tabel `users`
