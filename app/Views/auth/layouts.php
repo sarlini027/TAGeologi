@@ -9,7 +9,6 @@
     <meta content="Website TA Prodi Geologi" name="description" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="<?= base_url('dashboard_assets/images/favicon.ico') ?>">
-
     <!-- Bootstrap Css -->
     <link href="<?= base_url('dashboard_assets/css/bootstrap.min.css') ?>" rel="stylesheet" type="text/css" />
     <!-- Icons Css -->
