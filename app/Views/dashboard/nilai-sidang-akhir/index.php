@@ -18,7 +18,7 @@
                     </thead>
 
                     <tbody>
-                        <?php foreach ($listAccSeminarKemajuan as $key => $value): ?>
+                        <?php foreach ($listAccSidangAkhir as $key => $value): ?>
                             <tr>
                                 <td><?= $key + 1 ?></td>
                                 <td><?= $value['nama_lengkap'] ?></td>
@@ -49,7 +49,7 @@
                                                 <h5 class="modal-title" id="editModalLabel">Edit Nilai <?= $value['nama_lengkap'] ?></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
-                                            <form action="<?= base_url('nilai-seminar-kemajuan/update') ?>" method="post">
+                                            <form action="<?= base_url('nilai-sidang-akhir/update') ?>" method="post">
                                                 <?= csrf_field() ?>
                                                 <div class="modal-body" id="editModalBody<?= $value['user_id'] ?>">
                                                     <div class="row">
@@ -98,7 +98,7 @@
                 <h5 class="modal-title" id="addModalLabel">Input <?= $title ?></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?= base_url('nilai-seminar-kemajuan') ?>" method="post">
+            <form action="<?= base_url('nilai-sidang-akhir') ?>" method="post">
                 <?= csrf_field() ?>
                 <div class="modal-body">
                     <div class="row">

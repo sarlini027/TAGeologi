@@ -6,7 +6,10 @@ use App\Controllers\DataDosenController;
 use App\Controllers\DataIndikatorPenilaianController;
 use App\Controllers\DataMahasiswaController;
 use App\Controllers\DataTemplateController;
+use App\Controllers\LandingPageController;
+use App\Controllers\NilaiSeminarHasilController;
 use App\Controllers\NilaiSeminarKemajuanController;
+use App\Controllers\NilaiSidangAkhirController;
 use App\Controllers\SeminarHasilController;
 use App\Controllers\SeminarKemajuanController;
 use App\Controllers\SidangAkhirController;
@@ -19,7 +22,8 @@ use CodeIgniter\Router\RouteCollection;
 // misal ketika mengakses /homeadmin maka controlle yang akan digunakan adalah Admincontroller dan fungsi index
 
 
-$routes->get('/', 'LandingPageController::index');
+$routes->get('/', [LandingPageController::class, 'index']);
+$routes->get('/info-bot', [LandingPageController::class, 'infoBotTelegram']);
 
 $routes->get('/auth/login', [AuthController::class, 'login'], ['filter' => 'guestfilter']);
 $routes->post('/auth/login', [AuthController::class, 'login'], ['filter' => 'guestfilter']);
@@ -105,4 +109,17 @@ $routes->group('indikator-penilaian', ['filter' => 'authfilter'], static functio
 $routes->group('nilai-seminar-kemajuan', ['filter' => 'authfilter'], static function ($routes) {
     $routes->get('/', [NilaiSeminarKemajuanController::class, 'index']);
     $routes->post('/', [NilaiSeminarKemajuanController::class, 'storeNilai']);
+    $routes->post('update', [NilaiSeminarKemajuanController::class, 'updateNilai']);
+});
+
+$routes->group('nilai-seminar-hasil', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [NilaiSeminarHasilController::class, 'index']);
+    $routes->post('/', [NilaiSeminarHasilController::class, 'storeNilai']);
+    $routes->post('update', [NilaiSeminarHasilController::class, 'updateNilai']);
+});
+
+$routes->group('nilai-sidang-akhir', ['filter' => 'authfilter'], static function ($routes) {
+    $routes->get('/', [NilaiSidangAkhirController::class, 'index']);
+    $routes->post('/', [NilaiSidangAkhirController::class, 'storeNilai']);
+    $routes->post('update', [NilaiSidangAkhirController::class, 'updateNilai']);
 });

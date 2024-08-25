@@ -3,9 +3,11 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\BotTelegram;
 use App\Models\SeminarHasil;
 use App\Models\User;
 use CodeIgniter\HTTP\ResponseInterface;
+use Telegram\Bot\Api;
 
 class SeminarHasilController extends BaseController
 {
@@ -118,6 +120,9 @@ class SeminarHasilController extends BaseController
         $updateSeminar = $seminarHasilModel->update($id, $dataUpdateSeminar);
 
         if ($updateSeminar) {
+            // Send notification to user that their seminar has been validated
+            $this->sendNotificationTelegram($id);
+
             return redirect()->back()->with('success', 'Seminar hasil berhasil divalidasi');
         } else {
             return redirect()->back()->with('error', 'Gagal validasi seminar hasil');
@@ -143,5 +148,60 @@ class SeminarHasilController extends BaseController
         $data['title'] = 'List Riwayat Pengajuan Seminar Hasil';
 
         return view('dashboard/seminar-hasil/list-riwayat-pengajuan', $data);
+    }
+
+    protected function sendNotificationTelegram($id)
+    {
+        $seminarHasilModel = new SeminarHasil();
+        $seminarHasil = $seminarHasilModel
+            ->join('users', 'users.id = seminar_hasil.user_id')
+            ->where('seminar_hasil.id', $id)
+            ->first();
+
+        $userModel = new User();
+        $mahasiswa = $userModel->find($seminarHasil['user_id']);
+
+        // buat message template ada nama mahasiswa, nim, dosen pembimbing, dosen penguji 1, dosen penguji 2, tanggal, ruang dan tipe seminar
+        $message = "Pendaftaran seminar hasil mahasiswa dengan NIM " . $mahasiswa['username'] . " telah divalidasi. Berikut detailnya:\n\n";
+        $message .= "Nama Mahasiswa: " . $mahasiswa['nama_lengkap'] . "\n";
+        $message .= "NIM: " . $mahasiswa['username'] . "\n";
+
+        // Setting dosen pembimbing dan dosen penguji
+        $message .= $this->getDosenInfo($seminarHasil['id_dosen_pembimbing_1'], 'Dosen Pembimbing 1', $userModel);
+        $message .= $this->getDosenInfo($seminarHasil['id_dosen_pembimbing_2'], 'Dosen Pembimbing 2', $userModel);
+        $message .= $this->getDosenInfo($seminarHasil['id_dosen_penguji_1'], 'Dosen Penguji 1', $userModel);
+        $message .= $this->getDosenInfo($seminarHasil['id_dosen_penguji_2'], 'Dosen Penguji 2', $userModel);
+
+        $message .= "Tanggal: " . $seminarHasil['tgl_mulai'] . "\n";
+        $message .= "Ruang: " . $seminarHasil['ruang'] . "\n";
+        $message .= "Tipe Seminar: Seminar Hasil";
+
+        $this->sendTelegram($message);
+    }
+
+    protected function sendTelegram($message)
+    {
+        $getFirstBotFromDB = (new BotTelegram())->first();
+        if ($getFirstBotFromDB) {
+            $telegram = new Api($getFirstBotFromDB['token']);
+
+            $response = $telegram->sendMessage([
+                'chat_id' => $getFirstBotFromDB['chat_id'],
+                'text' => $message
+            ]);
+
+            $messageId = $response->getMessageId();
+        }
+    }
+
+    // Function to get dosen information
+    protected function getDosenInfo($id, $role, $userModel)
+    {
+        if ($id === null) {
+            return "$role: - \n";
+        } else {
+            $dosen = $userModel->find($id);
+            return "$role: " . $dosen['nama_lengkap'] . "\n";
+        }
     }
 }

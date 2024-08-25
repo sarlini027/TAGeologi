@@ -5,11 +5,12 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\DetailIndikatorPenilaian;
 use App\Models\IndikatorPenilaian;
+use App\Models\SeminarHasil;
 use App\Models\SeminarKemajuan;
 use App\Models\TempPenilaian;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class NilaiSeminarKemajuanController extends BaseController
+class NilaiSeminarHasilController extends BaseController
 {
     public function index()
     {
@@ -17,13 +18,13 @@ class NilaiSeminarKemajuanController extends BaseController
         $session = session();
         $user = $session->get('user');
 
-        $data['title'] = 'Nilai Seminar Kemajuan';
+        $data['title'] = 'Nilai Seminar Hasil';
 
-        // get seminar kemajuan
-        $seminarKemajuanModel = new SeminarKemajuan();
-        $data['listAccSeminarKemajuan'] = $seminarKemajuanModel
-            ->select('seminar_kemajuan.*, users.nama_lengkap, users.username')
-            ->join('users', 'users.id = seminar_kemajuan.user_id')
+        // get seminar hasil
+        $seminarHasilModel = new SeminarHasil();
+        $data['listAccSeminarHasil'] = $seminarHasilModel
+            ->select('seminar_hasil.*, users.nama_lengkap, users.username')
+            ->join('users', 'users.id = seminar_hasil.user_id')
             ->where('status_validasi', true)
             ->groupStart()
             ->orWhere('id_dosen_penguji_1', $user['id'])
@@ -33,22 +34,22 @@ class NilaiSeminarKemajuanController extends BaseController
             ->groupEnd()
             ->findAll();
 
-        $maksimal_bobot = (new DetailIndikatorPenilaian())->getMaksBobot("seminar_kemajuan");
+        $maksimal_bobot = (new DetailIndikatorPenilaian())->getMaksBobot("seminar_hasil");
 
         // merge array data list acc seminar kemajuan & show nilai
-        $data['listAccSeminarKemajuan'] = array_map(function ($seminarKemajuan) use ($maksimal_bobot, $user) {
+        $data['listAccSeminarHasil'] = array_map(function ($seminarHasil) use ($maksimal_bobot, $user) {
             $tempPenilaianModel = new TempPenilaian();
-            $nilaiSeminarKemajuan = $tempPenilaianModel
+            $nilaiSeminarHasil = $tempPenilaianModel
                 ->join('detail_indikator_penilaian', 'detail_indikator_penilaian.id = temp_penilaian.id_detail_indikator')
                 ->join('indikator_penilaian', 'indikator_penilaian.id = detail_indikator_penilaian.id_indikator')
-                ->where('indikator_penilaian.tipe', 'seminar_kemajuan')
-                ->where('id_mahasiswa', $seminarKemajuan['user_id'])
+                ->where('indikator_penilaian.tipe', 'seminar_hasil')
+                ->where('id_mahasiswa', $seminarHasil['user_id'])
                 ->where('id_dosen', $user['id'])
                 ->findAll();
 
-            if (count($nilaiSeminarKemajuan) > 0) {
+            if (count($nilaiSeminarHasil) > 0) {
                 if ($maksimal_bobot > 0) {
-                    $total_nilai = (array_sum(array_column($nilaiSeminarKemajuan, 'bobot')) / $maksimal_bobot) * 100;
+                    $total_nilai = (array_sum(array_column($nilaiSeminarHasil, 'bobot')) / $maksimal_bobot) * 100;
                     $total_nilai = number_format($total_nilai, 2);
                 } else {
                     $total_nilai = 0;
@@ -58,32 +59,30 @@ class NilaiSeminarKemajuanController extends BaseController
             }
 
             return [
-                ...$seminarKemajuan,
-                'nilai' => $nilaiSeminarKemajuan,
+                ...$seminarHasil,
+                'nilai' => $nilaiSeminarHasil,
                 'jumlah_nilai' => $total_nilai,
             ];
-        }, $data['listAccSeminarKemajuan']);
-
-        // return response()->setJSON($data);
+        }, $data['listAccSeminarHasil']);
 
         // Nilai Total dari seluruh dosen penguji dan pembimbing
         $data['nilaiTotal'] = [];
-        foreach ($data['listAccSeminarKemajuan'] as $seminarKemajuan) {
+        foreach ($data['listAccSeminarHasil'] as $seminarHasil) {
             $tempPenilaianModel = new TempPenilaian();
-            $nilaiSeminarKemajuan = $tempPenilaianModel
+            $nilaiSeminarHasil = $tempPenilaianModel
                 ->join('detail_indikator_penilaian', 'detail_indikator_penilaian.id = temp_penilaian.id_detail_indikator')
                 ->join('indikator_penilaian', 'indikator_penilaian.id = detail_indikator_penilaian.id_indikator')
-                ->where('indikator_penilaian.tipe', 'seminar_kemajuan')
-                ->where('id_mahasiswa', $seminarKemajuan['user_id'])
+                ->where('indikator_penilaian.tipe', 'seminar_hasil')
+                ->where('id_mahasiswa', $seminarHasil['user_id'])
                 ->findAll();
 
-            if (count($nilaiSeminarKemajuan) > 0) {
+            if (count($nilaiSeminarHasil) > 0) {
                 if ($maksimal_bobot > 0) {
-                    $total_nilai = (array_sum(array_column($nilaiSeminarKemajuan, 'bobot')) / $maksimal_bobot) * 100;
+                    $total_nilai = (array_sum(array_column($nilaiSeminarHasil, 'bobot')) / $maksimal_bobot) * 100;
                     $total_nilai = number_format($total_nilai, 2);
 
                     // total nilai / jumlah dosen yg memberikan nilai (di disctinct) 
-                    $total_nilai = ($total_nilai / count(array_unique(array_column($nilaiSeminarKemajuan, 'id_dosen'))));
+                    $total_nilai = ($total_nilai / count(array_unique(array_column($nilaiSeminarHasil, 'id_dosen'))));
                     $total_nilai = number_format($total_nilai, 2);
                 } else {
                     $total_nilai = 0;
@@ -93,25 +92,25 @@ class NilaiSeminarKemajuanController extends BaseController
             }
 
             $data['nilaiTotal'][] = [
-                'id_mahasiswa' => $seminarKemajuan['user_id'],
+                'id_mahasiswa' => $seminarHasil['user_id'],
                 'jumlah_nilai' => $total_nilai,
             ];
         }
 
-        // merge nilai total ke list acc seminar kemajuan dengan cara looping
-        foreach ($data['listAccSeminarKemajuan'] as $key => $value) {
-            $data['listAccSeminarKemajuan'][$key]['nilaiTotal'] = 0;
+        // merge nilai total ke list acc seminar hasil dengan cara looping
+        foreach ($data['listAccSeminarHasil'] as $key => $value) {
+            $data['listAccSeminarHasil'][$key]['nilaiTotal'] = 0;
             foreach ($data['nilaiTotal'] as $nilaiTotal) {
                 if ($value['user_id'] == $nilaiTotal['id_mahasiswa']) {
-                    $data['listAccSeminarKemajuan'][$key]['nilaiTotal'] = $nilaiTotal['jumlah_nilai'];
+                    $data['listAccSeminarHasil'][$key]['nilaiTotal'] = $nilaiTotal['jumlah_nilai'];
                 }
             }
         }
 
-        $data['formattedDataIndikatorPenilaian'] = $this->getDataIndikatorPenilaian('seminar_kemajuan');
+        $data['formattedDataIndikatorPenilaian'] = $this->getDataIndikatorPenilaian('seminar_hasil');
 
         // return response()->setJSON($data);
-        return view('dashboard/nilai-seminar-kemajuan/index', $data);
+        return view('dashboard/nilai-seminar-hasil/index', $data);
     }
 
     public function storeNilai()
@@ -166,13 +165,14 @@ class NilaiSeminarKemajuanController extends BaseController
                     'id_mahasiswa'          => $this->request->getPost('id_mahasiswa')
                 ]);
 
-                // Delete old
                 $deleteOld = $tempPenilaianModel
                     ->where('id_mahasiswa', $this->request->getPost('id_mahasiswa'))
                     ->where('id_dosen', session()->get('user')['id'])
                     ->where('id_indikator', $listIdIndikator[$i])
                     ->delete();
             }
+
+            // Delete old
 
             // Insert new
             $tambahNilai = $tempPenilaianModel->insertBatch($dataTempPenilaian);
