@@ -43,7 +43,7 @@
             <div class="navbar-header">
                 <div class="d-flex">
                     <!-- LOGO -->
-                    <div class="navbar-brand-box">
+                    <div class="navbar-brand-box" style="background-color: #fcf7d7;">
                         <a href="<?= base_url("/dashboard") ?>" class="logo logo-dark">
                             <span class="logo-sm">
                                 <img src="<?= base_url('logo/logo.png') ?>" alt="" height="20">
