@@ -27,7 +27,7 @@ class SeminarKemajuanController extends BaseController
                     'label' => 'Draft Proposal',
                     'rules' => [
                         'uploaded[draft_proposal]',
-                        'max_size[draft_proposal,1024]',
+                        'max_size[draft_proposal,10240]',
                         'ext_in[draft_proposal,pdf]'
                     ]
                 ],
@@ -35,7 +35,7 @@ class SeminarKemajuanController extends BaseController
                     'label' => 'Lembar Pendaftaran Seminar',
                     'rules' => [
                         'uploaded[lembar_seminar]',
-                        'max_size[lembar_seminar,1024]',
+                        'max_size[lembar_seminar,10240]',
                         'ext_in[lembar_seminar,pdf]',
                     ],
                 ],
@@ -81,7 +81,7 @@ class SeminarKemajuanController extends BaseController
     {
         $rules = [
             'id_dosen_pembimbing_1' => 'required',
-            'id_dosen_penguji_1'    => 'required',
+            // 'id_dosen_penguji_1'    => 'required',
             'tgl_mulai'             => 'required',
             'ruang'                 => 'required',
         ];
@@ -92,7 +92,7 @@ class SeminarKemajuanController extends BaseController
 
         $dataUpdateSeminar = [
             'id_dosen_pembimbing_1' => $this->request->getPost('id_dosen_pembimbing_1'),
-            'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
+            // 'id_dosen_penguji_1'    => $this->request->getPost('id_dosen_penguji_1'),
             'status_validasi'       => true,
             'tgl_mulai'             => $this->request->getPost('tgl_mulai'),
             'ruang'                 => $this->request->getPost('ruang'),

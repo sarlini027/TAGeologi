@@ -27,7 +27,7 @@ class SidangAkhirController extends BaseController
                     'label' => 'Kendali Bimbingan',
                     'rules' => [
                         'uploaded[kendali_bimbingan]',
-                        'max_size[kendali_bimbingan,1024]',
+                        'max_size[kendali_bimbingan,10240]',
                         'ext_in[kendali_bimbingan,pdf]'
                     ]
                 ],
@@ -35,7 +35,7 @@ class SidangAkhirController extends BaseController
                     'label' => 'Form Pendaftaran Sidang',
                     'rules' => [
                         'uploaded[form_pendaftaran_sidang]',
-                        'max_size[form_pendaftaran_sidang,1024]',
+                        'max_size[form_pendaftaran_sidang,10240]',
                         'ext_in[form_pendaftaran_sidang,pdf]'
                     ]
                 ],
@@ -43,7 +43,7 @@ class SidangAkhirController extends BaseController
                     'label' => 'Form Bimbingan',
                     'rules' => [
                         'uploaded[form_bimbingan]',
-                        'max_size[form_bimbingan,1024]',
+                        'max_size[form_bimbingan,10240]',
                         'ext_in[form_bimbingan,pdf]'
                     ]
                 ],
@@ -51,7 +51,7 @@ class SidangAkhirController extends BaseController
                     'label' => 'Kehadiran Seminar',
                     'rules' => [
                         'uploaded[kehadiran_seminar]',
-                        'max_size[kehadiran_seminar,1024]',
+                        'max_size[kehadiran_seminar,10240]',
                         'ext_in[kehadiran_seminar,pdf]'
                     ]
                 ],
@@ -63,7 +63,7 @@ class SidangAkhirController extends BaseController
                     'label' => 'Transkrip Nilai',
                     'rules' => [
                         'uploaded[transkrip_nilai]',
-                        'max_size[transkrip_nilai,1024]',
+                        'max_size[transkrip_nilai,10240]',
                         'ext_in[transkrip_nilai,pdf]'
                     ]
                 ],

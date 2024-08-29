@@ -27,7 +27,7 @@ class SeminarHasilController extends BaseController
                     'label' => 'Bukti Kehadiran',
                     'rules' => [
                         'uploaded[bukti_kehadiran]',
-                        'max_size[bukti_kehadiran,1024]',
+                        'max_size[bukti_kehadiran,10240]',
                         'ext_in[bukti_kehadiran,pdf]'
                     ]
                 ],
@@ -35,18 +35,18 @@ class SeminarHasilController extends BaseController
                     'label' => 'Kendali Bimbingan Seminar',
                     'rules' => [
                         'uploaded[kendali_bimbingan_semhas]',
-                        'max_size[kendali_bimbingan_semhas,1024]',
+                        'max_size[kendali_bimbingan_semhas,10240]',
                         'ext_in[kendali_bimbingan_semhas,pdf]',
                     ],
                 ],
-                'form_pendaftaran_dosbing' => [
-                    'label' => 'Form Pendaftaran Dosbing',
-                    'rules' => [
-                        'uploaded[form_pendaftaran_dosbing]',
-                        'max_size[form_pendaftaran_dosbing,1024]',
-                        'ext_in[form_pendaftaran_dosbing,pdf]',
-                    ],
-                ],
+                // 'form_pendaftaran_dosbing' => [
+                //     'label' => 'Form Pendaftaran Dosbing',
+                //     'rules' => [
+                //         'uploaded[form_pendaftaran_dosbing]',
+                //         'max_size[form_pendaftaran_dosbing,1024]',
+                //         'ext_in[form_pendaftaran_dosbing,pdf]',
+                //     ],
+                // ],
             ];
 
             if (!$this->validateData([], $rules)) {
@@ -57,18 +57,18 @@ class SeminarHasilController extends BaseController
             // Store the files
             $buktiKehadiran = $this->request->getFile('bukti_kehadiran');
             $kendaliBimbingan = $this->request->getFile('kendali_bimbingan_semhas');
-            $formPendaftaranDosbing = $this->request->getFile('form_pendaftaran_dosbing');
+            // $formPendaftaranDosbing = $this->request->getFile('form_pendaftaran_dosbing');
 
             // declare folder for the files
             $folderFile = 'uploads/seminar-hasil/';
             $folderFileBuktiKehadiran = $folderFile . 'bukti-kehadiran/';
             $folderFileKendaliBimbingan = $folderFile . 'kendali-bimbingan/';
-            $folderFileFormPendaftaranDosbing = $folderFile . 'form-pendaftaran-dosbing/';
+            // $folderFileFormPendaftaranDosbing = $folderFile . 'form-pendaftaran-dosbing/';
 
             // Move the files
             $buktiKehadiran->move($folderFileBuktiKehadiran);
             $kendaliBimbingan->move($folderFileKendaliBimbingan);
-            $formPendaftaranDosbing->move($folderFileFormPendaftaranDosbing);
+            // $formPendaftaranDosbing->move($folderFileFormPendaftaranDosbing);
 
             // Save to database
             $seminarHasilModel = new SeminarHasil();
@@ -76,7 +76,7 @@ class SeminarHasilController extends BaseController
                 'user_id'           => session()->user['id'],
                 'bukti_kehadiran'   => base_url($folderFileBuktiKehadiran) . $buktiKehadiran->getName(),
                 'kendali_bimbingan' => base_url($folderFileKendaliBimbingan) . $kendaliBimbingan->getName(),
-                'form_pendaftaran'  => base_url($folderFileFormPendaftaranDosbing) . $formPendaftaranDosbing->getName(),
+                // 'form_pendaftaran'  => base_url($folderFileFormPendaftaranDosbing) . $formPendaftaranDosbing->getName(),
             ]);
 
             if ($saveSeminar) {

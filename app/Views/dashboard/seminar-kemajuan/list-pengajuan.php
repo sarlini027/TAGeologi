@@ -63,7 +63,7 @@
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
-                                                    <div class="col-md-6 mb-2">
+                                                    <!-- <div class="col-md-6 mb-2">
                                                         <label class="form-label" id="id_dosen_penguji_1">Dosen Penguji 1</label>
                                                         <select class="form-select" name="id_dosen_penguji_1">
                                                             <option value="">Silahkan Pilih</option>
@@ -80,7 +80,7 @@
                                                                 <option value="<?= $value['id'] ?>"><?= $value['nama_lengkap'] ?> - <?= $value['username'] ?></option>
                                                             <?php endforeach; ?>
                                                         </select>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-md-6 mb-2">
                                                         <label class="form-label" id="tgl_mulai">Tanggal Mulai</label>
                                                         <input type="datetime-local" class="form-control" name="tgl_mulai" />
