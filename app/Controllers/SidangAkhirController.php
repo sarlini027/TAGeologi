@@ -154,6 +154,7 @@ class SidangAkhirController extends BaseController
         if ($updateSeminar) {
             // Send notification to user that their seminar has been validated
             $this->sendNotificationTelegram($id);
+            $this->sendNotificationEmail($id);
 
             return redirect()->back()->with('success', 'Sidang akhir berhasil divalidasi');
         } else {
@@ -234,6 +235,80 @@ class SidangAkhirController extends BaseController
         } else {
             $dosen = $userModel->find($id);
             return "$role: " . $dosen['nama_lengkap'] . "\n";
+        }
+    }
+
+    protected function sendNotificationEmail($id)
+    {
+        // Load the models
+        $sidangAkhirModel = new SidangAkhir();
+        $userModel = new User();
+
+        // Fetch seminar details
+        $sidangAkhir = $sidangAkhirModel
+            ->join('users', 'users.id = sidang_akhir.user_id')
+            ->where('sidang_akhir.id', $id)
+            ->first();
+
+        // Fetch user (student) details
+        $mahasiswa = $userModel->find($sidangAkhir['user_id']);
+
+        // Create the email message in HTML format
+        $message = "
+        <p>Pendaftaran sidang akhir mahasiswa dengan NIM <strong>" . $mahasiswa['username'] . "</strong> telah divalidasi. Berikut detailnya:</p>
+        <ul>
+            <li><strong>Nama Mahasiswa:</strong> " . $mahasiswa['nama_lengkap'] . "</li>
+            <li><strong>NIM:</strong> " . $mahasiswa['username'] . "</li>";
+
+        // Append dosen (supervisor and examiner) details
+        $message .= $this->getDosenInfoHtml($sidangAkhir['id_dosen_pembimbing_1'], 'Dosen Pembimbing 1');
+        $message .= $this->getDosenInfoHtml($sidangAkhir['id_dosen_pembimbing_2'], 'Dosen Pembimbing 2');
+        $message .= $this->getDosenInfoHtml($sidangAkhir['id_dosen_penguji_1'], 'Dosen Penguji 1');
+        $message .= $this->getDosenInfoHtml($sidangAkhir['id_dosen_penguji_2'], 'Dosen Penguji 2');
+
+        $message .= "
+            <li><strong>Tanggal:</strong> " . $sidangAkhir['tgl_mulai'] . "</li>
+            <li><strong>Ruang:</strong> " . $sidangAkhir['ruang'] . "</li>
+            <li><strong>Tipe Seminar:</strong> Sidang Akhir</li>
+        </ul>";
+
+        $this->sendEmail($mahasiswa['email'], $message);
+    }
+
+    /**
+     * Helper function to get dosen (supervisor/examiner) information and format it in HTML.
+     */
+    protected function getDosenInfoHtml($dosenId, $role)
+    {
+        if ($dosenId == null) {
+            return "<li><strong>{$role}:</strong> -</li>";
+        }
+
+        $dosen = (new User())->where('id', $dosenId)->first();
+        if ($dosen) {
+            $namaDosen = $dosen ? $dosen['nama_lengkap'] : '-';
+            $usernameDosen = $dosen ? $dosen['username'] : '-';
+            if ($dosen) {
+                return "<li><strong>{$role}:</strong> " . $namaDosen . " (" . $usernameDosen . ")</li>";
+            }
+        }
+        return "<li><strong>{$role}:</strong> Not Assigned</li>";
+    }
+
+    protected function sendEmail($emailMahasiswa, $message)
+    {
+        if ($emailMahasiswa !== null) {
+            // Load the Email library
+            $email = \Config\Services::email();
+
+            // Set email preferences
+            $email->setFrom('admin@tageologi.com', 'Admin TaGeologi');
+            $email->setTo($emailMahasiswa);
+            $email->setSubject('Notifikasi Seminar Hasil');
+            $email->setMessage($message);
+
+            // Send the email and check for errors
+            $email->send();
         }
     }
 }

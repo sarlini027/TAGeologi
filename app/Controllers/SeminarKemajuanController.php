@@ -98,11 +98,11 @@ class SeminarKemajuanController extends BaseController
             'ruang'                 => $this->request->getPost('ruang'),
         ];
 
-        if($this->request->getPost('id_dosen_pembimbing_2')) {
+        if ($this->request->getPost('id_dosen_pembimbing_2')) {
             $dataUpdateSeminar['id_dosen_pembimbing_2'] = $this->request->getPost('id_dosen_pembimbing_2');
         }
 
-        if($this->request->getPost('id_dosen_penguji_2')) {
+        if ($this->request->getPost('id_dosen_penguji_2')) {
             $dataUpdateSeminar['id_dosen_penguji_2'] = $this->request->getPost('id_dosen_penguji_2');
         }
 
@@ -112,6 +112,7 @@ class SeminarKemajuanController extends BaseController
         if ($updateSeminar) {
             // Send notification to user that their seminar has been validated
             $this->sendNotificationTelegram($id);
+            $this->sendNotificationEmail($id);
 
             return redirect()->back()->with('success', 'Seminar kemajuan berhasil divalidasi');
         } else {
@@ -192,6 +193,80 @@ class SeminarKemajuanController extends BaseController
         } else {
             $dosen = $userModel->find($id);
             return "$role: " . $dosen['nama_lengkap'] . "\n";
+        }
+    }
+
+    protected function sendNotificationEmail($id)
+    {
+        // Load the models
+        $seminarKemajuanModel = new SeminarKemajuan();
+        $userModel = new User();
+
+        // Fetch seminar details
+        $seminarKemajuan = $seminarKemajuanModel
+            ->join('users', 'users.id = seminar_kemajuan.user_id')
+            ->where('seminar_kemajuan.id', $id)
+            ->first();
+
+        // Fetch user (student) details
+        $mahasiswa = $userModel->find($seminarKemajuan['user_id']);
+
+        // Create the email message in HTML format
+        $message = "
+        <p>Pendaftaran seminar hasil mahasiswa dengan NIM <strong>" . $mahasiswa['username'] . "</strong> telah divalidasi. Berikut detailnya:</p>
+        <ul>
+            <li><strong>Nama Mahasiswa:</strong> " . $mahasiswa['nama_lengkap'] . "</li>
+            <li><strong>NIM:</strong> " . $mahasiswa['username'] . "</li>";
+
+        // Append dosen (supervisor and examiner) details
+        $message .= $this->getDosenInfoHtml($seminarKemajuan['id_dosen_pembimbing_1'], 'Dosen Pembimbing 1');
+        $message .= $this->getDosenInfoHtml($seminarKemajuan['id_dosen_pembimbing_2'], 'Dosen Pembimbing 2');
+        $message .= $this->getDosenInfoHtml($seminarKemajuan['id_dosen_penguji_1'], 'Dosen Penguji 1');
+        $message .= $this->getDosenInfoHtml($seminarKemajuan['id_dosen_penguji_2'], 'Dosen Penguji 2');
+
+        $message .= "
+            <li><strong>Tanggal:</strong> " . $seminarKemajuan['tgl_mulai'] . "</li>
+            <li><strong>Ruang:</strong> " . $seminarKemajuan['ruang'] . "</li>
+            <li><strong>Tipe Seminar:</strong> Seminar Kemajuan</li>
+        </ul>";
+
+        $this->sendEmail($mahasiswa['email'], $message);
+    }
+
+    /**
+     * Helper function to get dosen (supervisor/examiner) information and format it in HTML.
+     */
+    protected function getDosenInfoHtml($dosenId, $role)
+    {
+        if ($dosenId == null) {
+            return "<li><strong>{$role}:</strong> -</li>";
+        }
+
+        $dosen = (new User())->where('id', $dosenId)->first();
+        if ($dosen) {
+            $namaDosen = $dosen ? $dosen['nama_lengkap'] : '-';
+            $usernameDosen = $dosen ? $dosen['username'] : '-';
+            if ($dosen) {
+                return "<li><strong>{$role}:</strong> " . $namaDosen . " (" . $usernameDosen . ")</li>";
+            }
+        }
+        return "<li><strong>{$role}:</strong> Not Assigned</li>";
+    }
+
+    protected function sendEmail($emailMahasiswa, $message)
+    {
+        if ($emailMahasiswa !== null) {
+            // Load the Email library
+            $email = \Config\Services::email();
+
+            // Set email preferences
+            $email->setFrom('admin@tageologi.com', 'Admin TaGeologi');
+            $email->setTo($emailMahasiswa);
+            $email->setSubject('Notifikasi Seminar Hasil');
+            $email->setMessage($message);
+
+            // Send the email and check for errors
+            $email->send();
         }
     }
 }
